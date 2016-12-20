@@ -16,12 +16,18 @@ Including another URLconf
 """
 from django.conf.urls import patterns, url, include
 from django.contrib import admin
+from app import views
 
 ## Bckended admin management
-from django.contrib import admin
 admin.autodiscover()
 
 ## Nest-structure
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^sign-in/$', views.sign_in),
+    url(r'^sign-up/$', views.sign_up),
+    url(r'^index/$', views.index),
+    url(r'^front/$', views.front),
+    url(r'^profile/$', views.profile),
+    url(r'^group/$', views.group),
 )

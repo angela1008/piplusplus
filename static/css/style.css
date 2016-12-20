@@ -1,0 +1,297 @@
+ /* Custom Stylesheet */
+ /**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+ 
+ p {
+     line-height: 2rem;
+ }
+ 
+ .parallax-container {
+     min-height: 280px;
+     line-height: 0;
+     height: auto;
+     color: rgba(255, 255, 255, .9);
+ }
+ 
+ .parallax-container .section {
+     width: 100%;
+ }
+ 
+ @media only screen and (max-width: 992px) {
+     .parallax-container .section {
+         position: absolute;
+         top: 40%;
+     }
+     #index-banner .section {
+         top: 10%;
+     }
+ }
+ 
+ @media only screen and (max-width: 600px) {
+     #index-banner .section {
+         top: 0;
+     }
+ }
+ 
+ .icon-block {
+     padding: 0 15px;
+ }
+ 
+ .icon-block .material-icons {
+     font-size: inherit;
+ }
+ 
+ footer.page-footer {
+     margin: 0;
+ }
+ 
+ body {
+     background: #eee;
+ }
+ 
+ .right-side {
+     background: #fff;
+ }
+ 
+ main>.row {
+     margin-bottom: 0;
+ }
+ 
+ nav {
+     position: relative;
+     z-index: 999;
+ }
+ 
+ .index-banner-card {
+     position: relative;
+     margin: 0.5rem 0 1rem 0;
+     transition: box-shadow .25s;
+     border-radius: 2px;
+     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+ }
+ 
+ textarea.materialize-textarea {
+     padding: 0;
+ }
+ 
+ .talign-wrapper {
+     display: -webkit-flex;
+     display: -ms-flexbox;
+     display: flex;
+ }
+ 
+ .title-circle {
+     margin-top: 20px;
+     width: 36px;
+ }
+ 
+ .small-circle {
+     width: 24px;
+ }
+ 
+ .collection .collection-item.avatar .circle-avatar {
+     width: 36px;
+     height: 36px;
+ }
+ 
+ .post-header {
+     display: inline-block;
+     margin-top: 20px;
+     font-weight: bold;
+ }
+ 
+ .profile-container {
+     background: #fff;
+     margin-top: -20px;
+ }
+ 
+ .profile-pic {
+     width: 130px;
+     margin-top: -65px;
+     border: 2px solid white;
+ }
+ 
+ .group-card .card-title {
+     font-size: 18px;
+ }
+ 
+ .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+     font-size: 16px;
+ }
+ 
+ .group-card .card-content p {
+     font-size: 12px;
+ }
+ 
+ .group-card .card-content .card-title {
+     line-height: 24px;
+ }
+ 
+ .group-card .card-content {
+     padding: 15px;
+ }
+ 
+ .group-card .card-action {
+     padding: 10px 15px;
+ }
+ 
+ .active-members {
+     padding: 0 25px;
+ }
+ 
+ .active-members li {
+     padding: 5px 0;
+ }
+ 
+ .active-members li img,
+ .active-members li span {
+     vertical-align: middle;
+     margin-left: 10px;
+ }
+ 
+ .collection .collection-item.avatar .check-list {
+     position: absolute;
+     width: 42px;
+     height: 42px;
+     overflow: hidden;
+     left: 15px;
+     display: inline-block;
+     vertical-align: middle;
+ }
+ 
+ #event > .card-panel > .collection {
+     overflow: visible;
+ }
+ 
+ .pin-top {
+     position: relative;
+ }
+ 
+ .small-modal {
+     width: 35%;
+ }
+ 
+ .table-of-contents a.active,
+ .table-of-contents a:hover {
+     border-color: #ff8a65;
+ }
+ 
+ .tabs .tab a:hover,
+ .tabs .tab a.active {
+     color: #ff8a65;
+ }
+ 
+ .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+     color: #1de9b6;
+ }
+ 
+ .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {
+     color: #a7ffeb;
+ }
+ 
+ .tabs .tab a {
+     color: rgba(255, 138, 101, 0.7);
+ }
+ 
+ .comment-collection {
+     margin: 0;
+     border-style: solid none;
+ }
+ 
+ .action-buttons .btn-flat {
+     padding: 0 0.4rem;
+ }
+ 
+ .action-buttons .btn-flat i.left {
+     margin-right: 10px;
+ }
+ 
+ .input-field input[type=search] {
+     height: inherit;
+ }
+ 
+ .inline-element {
+     display: inline-block;
+ }
+ 
+ .logo-container {
+     padding: 20px;
+ }
+ 
+ .nav-logo {
+     display: inline-block;
+     background: url(../images/logo_small.svg) no-repeat 50%;
+     background-size: 80%;
+     text-indent: 101%;
+     width: 56px;
+     height: 56px;
+ }
+ 
+ @media only screen and (min-width: 601px) {
+     .nav-logo {
+         width: 64px;
+         height: 64px;
+     }
+ }
+ 
+ @media only screen and (min-width: 993px) {
+     .nav-container {
+         width: 75%;
+     }
+ }
+ 
+ @media only screen and (min-width: 601px) {
+     .nav-container {
+         width: 90%;
+     }
+ }
+ 
+ .nav-container {
+     margin: 0 auto;
+     max-width: 1280px;
+     width: 95%;
+ }
+ 
+ @media only screen and (min-width: 601px) {
+     nav > div >.tabs {
+         display: -webkit-flex;
+         display: -ms-flexbox;
+         display: flex;
+         width: 40%;
+     }
+     nav > div >.tabs .tab {
+         -webkit-box-flex: 1;
+         -webkit-flex-grow: 1;
+         -ms-flex-positive: 1;
+         flex-grow: 1;
+     }
+ }
+ 
+ h2.strikeThrough {
+     position: relative;
+     text-align: center;
+     color: #a8a8a8;
+     font-size: 13px;
+     font-style: italic;
+     font-weight: normal;
+     z-index: 1;
+ }
+ 
+ h2.strikeThrough:before {
+     border-top: solid 1px #d8d8d8;
+     content: '';
+     position: absolute;
+     top: 50%;
+     left: 10px;
+     right: 10px;
+     z-index: -1;
+ }
+ 
+ h2.strikeThrough span {
+     background: #fff;
+     padding: 0 10px;
+ }
