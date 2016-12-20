@@ -47,9 +47,9 @@ class Event(models.Model):
     join_number=models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
-	
+
     def __unicode__(self):
-	    return self.title
+        return self.title
 
 
 class EventShip(models.Model):
@@ -68,9 +68,9 @@ class Progress(models.Model):
     finished_number = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
-	
+
     def __unicode__(self):
-	    return self.title
+        return self.title
 
 
 class ProgressShip(models.Model):
@@ -78,5 +78,43 @@ class ProgressShip(models.Model):
     progress = models.ForeignKey(Progress, on_delete=models.CASCADE)
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     is_finished = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    
+    
+## Discussion
+class Discussion(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField(max_length=254)
+    heart_number = models.IntegerField(default=0)
+    comment_number = models.IntegerField(default=0)
+    share_number = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    
+    def __unicode__(self):
+        return self.title
+    
+class DiscussionShip(models.Model):
+    member = models.ForeignKey(User, on_delete=models.CASCADE)
+    discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    
+class Comment(models.Model):
+    content = models.TextField(max_length=254)
+    heart_number = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    
+    def __unicode__(self):
+        return self.content
+
+class CommentShip(models.Model):
+    member = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
