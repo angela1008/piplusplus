@@ -16,7 +16,7 @@
         <div class="nav-wrapper nav-container">
             <a href="index.html" class="nav-logo"></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="#"><i class="material-icons">notifications</i></a></li>
+                <li><a href="front_log_in.html"><i class="material-icons">notifications</i></a></li>
                 <li><a href="profile_owner.html"><i class="material-icons">person</i></a></li>
                 <li><a href="#"><i class="material-icons">more_vert</i></a></li>
             </ul>
@@ -114,47 +114,20 @@
                             <li class="tab col s2"><a href="#note">筆記</a></li>
                         </ul>
                     </div>
-                    <div class="fixed-action-btn">
-                        <a class="btn-floating btn-large teal accent-2">
-                            <i class="large material-icons">add</i>
-                        </a>
-                        <ul>
-                            <li>
-                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="討論">
-                                    <i class="material-icons">forum</i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="活動">
-                                    <i class="material-icons">event</i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="進度">
-                                    <i class="material-icons">check_circle</i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="筆記">
-                                    <i class="material-icons">note_add</i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                     <div id="discussion">
                         <div class="card-panel">
-                            <div class="valign-wrapper">
-                                <div class="col s1">
-                                    <img src="../static/images/img2.png" alt="" class="title-circle circle">
-                                </div>
-                                <div class="col s11">
-                                    <h5 class="bold post-header">Name</h5>
-                                    <div class="right post-header grey-text"><i class="material-icons">more_vert</i></div>
-                                </div>
-                            </div>
-                            <div class="valign-wrapper">
-                                <div class="offset-s1 col s11 row">
-                                    <span>comments...............................................................................................</span>
+                            <div class="post">
+                                <div class="post-content">
+                                    <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                    <span class="title">Name</span>
+                                    <p>First Line
+                                        <br> Second Line
+                                    </p>
+                                    <div class="action-buttons secondary-content">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons">more_vert</i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="valign-wrapper">
@@ -212,169 +185,162 @@
                                 </li>
                             </ul>
                             <div class="talign-wrapper">
-                                <div class="col s1">
-                                    <img src="../static/images/img2.png" alt="" class="title-circle">
-                                    <!-- notice the "circle" class -->
-                                </div>
-                                <div class="input-field col s11">
-                                    <textarea id="textarea2" class="materialize-textarea"></textarea>
-                                    <label for="textarea2">Textarea</label>
-                                </div>
-                                <div class="divider"></div>
+                                你還沒有加入社團喔！
                             </div>
                         </div>
                     </div>
-                    <div id="event">
-                        <div class="card-panel">
-                            <ul class="collection">
-                                <li class="collection-item avatar">
-                                    <i class="material-icons circle">star</i>
-                                    <span class="title">活動主題</span>
-                                    <p>時間, 地點
-                                        <br>共87人參加
-                                    </p>
-                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown1'>
-                                        <i class="material-icons left">event_note</i>不確定</a>
-                                    <ul id='dropdown1' class='dropdown-content'>
-                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
-                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
-                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
-                                    </ul>
-                                </li>
-                                <li class="collection-item avatar">
-                                    <i class="material-icons circle">star</i>
-                                    <span class="title">活動主題</span>
-                                    <p>時間, 地點
-                                        <br>共87人參加
-                                    </p>
-                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown2'>
-                                        <i class="material-icons left">event_note</i>不確定</a>
-                                    <ul id='dropdown2' class='dropdown-content'>
-                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
-                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
-                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
-                                    </ul>
-                                </li>
-                                <li class="collection-item avatar">
-                                    <i class="material-icons circle">star</i>
-                                    <span class="title">活動主題</span>
-                                    <p>時間, 地點
-                                        <br>共87人參加
-                                    </p>
-                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown3'>
-                                        <i class="material-icons left">event_note</i>不確定</a>
-                                    <ul id='dropdown3' class='dropdown-content'>
-                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
-                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
-                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
-                                    </ul>
-                                </li>
-                                <li class="collection-item avatar">
-                                    <i class="material-icons circle">star</i>
-                                    <span class="title">活動主題</span>
-                                    <p>時間, 地點
-                                        <br>共87人參加
-                                    </p>
-                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown4'>
-                                        <i class="material-icons left">event_note</i>不確定</a>
-                                    <ul id='dropdown4' class='dropdown-content'>
-                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
-                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
-                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                </div>
+                <div id="event">
+                    <div class="card-panel">
+                        <ul class="collection">
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle">star</i>
+                                <span class="title">活動主題</span>
+                                <p>時間, 地點
+                                    <br>共87人參加
+                                </p>
+                                <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown1'>
+                                    <i class="material-icons left">event_note</i>不確定</a>
+                                <ul id='dropdown1' class='dropdown-content'>
+                                    <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                    <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                    <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                </ul>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle">star</i>
+                                <span class="title">活動主題</span>
+                                <p>時間, 地點
+                                    <br>共87人參加
+                                </p>
+                                <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown2'>
+                                    <i class="material-icons left">event_note</i>不確定</a>
+                                <ul id='dropdown2' class='dropdown-content'>
+                                    <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                    <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                    <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                </ul>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle">star</i>
+                                <span class="title">活動主題</span>
+                                <p>時間, 地點
+                                    <br>共87人參加
+                                </p>
+                                <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown3'>
+                                    <i class="material-icons left">event_note</i>不確定</a>
+                                <ul id='dropdown3' class='dropdown-content'>
+                                    <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                    <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                    <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                </ul>
+                            </li>
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle">star</i>
+                                <span class="title">活動主題</span>
+                                <p>時間, 地點
+                                    <br>共87人參加
+                                </p>
+                                <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown4'>
+                                    <i class="material-icons left">event_note</i>不確定</a>
+                                <ul id='dropdown4' class='dropdown-content'>
+                                    <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                    <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                    <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
-                    <div id="to-do">
-                        <div class="card-panel">
-                            <ul class="collection">
-                                <li class="collection-item avatar">
-                                    <p class="check-list center">
-                                        <input type="checkbox" id="check1" />
-                                        <label for="check1"></label>
-                                    </p>
-                                    <span class="title">進度內容</span>
-                                    <p>時間
-                                        <br> 共87人完成
-                                    </p>
-                                    <div class="secondary-content">
-                                        <div class="switch">
-                                            <label>
-                                                通知
-                                                <input type="checkbox">
-                                                <span class="lever"></span>
-                                            </label>
-                                        </div>
+                </div>
+                <div id="to-do">
+                    <div class="card-panel">
+                        <ul class="collection">
+                            <li class="collection-item avatar">
+                                <p class="check-list center">
+                                    <input type="checkbox" id="check1" />
+                                    <label for="check1"></label>
+                                </p>
+                                <span class="title">進度內容</span>
+                                <p>時間
+                                    <br> 共87人完成
+                                </p>
+                                <div class="secondary-content">
+                                    <div class="switch">
+                                        <label>
+                                            通知
+                                            <input type="checkbox">
+                                            <span class="lever"></span>
+                                        </label>
                                     </div>
-                                </li>
-                                <li class="collection-item avatar">
-                                    <p class="check-list center">
-                                        <input type="checkbox" id="check2" />
-                                        <label for="check2"></label>
-                                    </p>
-                                    <span class="title">進度內容</span>
-                                    <p>時間
-                                        <br> 共87人完成
-                                    </p>
-                                    <div class="secondary-content">
-                                        <div class="switch">
-                                            <label>
-                                                通知
-                                                <input type="checkbox">
-                                                <span class="lever"></span>
-                                            </label>
-                                        </div>
+                                </div>
+                            </li>
+                            <li class="collection-item avatar">
+                                <p class="check-list center">
+                                    <input type="checkbox" id="check2" />
+                                    <label for="check2"></label>
+                                </p>
+                                <span class="title">進度內容</span>
+                                <p>時間
+                                    <br> 共87人完成
+                                </p>
+                                <div class="secondary-content">
+                                    <div class="switch">
+                                        <label>
+                                            通知
+                                            <input type="checkbox">
+                                            <span class="lever"></span>
+                                        </label>
                                     </div>
-                                </li>
-                                <li class="collection-item avatar">
-                                    <p class="check-list center">
-                                        <input type="checkbox" id="check3" />
-                                        <label for="check3"></label>
-                                    </p>
-                                    <span class="title">進度內容</span>
-                                    <p>時間
-                                        <br> 共87人完成
-                                    </p>
-                                    <div class="secondary-content">
-                                        <div class="switch">
-                                            <label>
-                                                通知
-                                                <input type="checkbox">
-                                                <span class="lever"></span>
-                                            </label>
-                                        </div>
+                                </div>
+                            </li>
+                            <li class="collection-item avatar">
+                                <p class="check-list center">
+                                    <input type="checkbox" id="check3" />
+                                    <label for="check3"></label>
+                                </p>
+                                <span class="title">進度內容</span>
+                                <p>時間
+                                    <br> 共87人完成
+                                </p>
+                                <div class="secondary-content">
+                                    <div class="switch">
+                                        <label>
+                                            通知
+                                            <input type="checkbox">
+                                            <span class="lever"></span>
+                                        </label>
                                     </div>
-                                </li>
-                                <li class="collection-item avatar">
-                                    <p class="check-list center">
-                                        <input type="checkbox" id="check4" />
-                                        <label for="check4"></label>
-                                    </p>
-                                    <span class="title">進度內容</span>
-                                    <p>時間
-                                        <br> 共87人完成
-                                    </p>
-                                    <div class="secondary-content">
-                                        <div class="switch">
-                                            <label>
-                                                通知
-                                                <input type="checkbox">
-                                                <span class="lever"></span>
-                                            </label>
-                                        </div>
+                                </div>
+                            </li>
+                            <li class="collection-item avatar">
+                                <p class="check-list center">
+                                    <input type="checkbox" id="check4" />
+                                    <label for="check4"></label>
+                                </p>
+                                <span class="title">進度內容</span>
+                                <p>時間
+                                    <br> 共87人完成
+                                </p>
+                                <div class="secondary-content">
+                                    <div class="switch">
+                                        <label>
+                                            通知
+                                            <input type="checkbox">
+                                            <span class="lever"></span>
+                                        </label>
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <div id="note">
-                        <div class="card-panel">
-                            ...
-                        </div>
+                </div>
+                <div id="note">
+                    <div class="card-panel">
+                        ...
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </main>
     <!--  Scripts-->
