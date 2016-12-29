@@ -15,8 +15,10 @@ Including another URLconf
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import patterns, url, include
+# from django.contrib.auth.views import login, logout
 from django.contrib import admin
 from app import views
+from api import views as apiViews
 
 ## Bckended admin management
 admin.autodiscover()
@@ -24,10 +26,14 @@ admin.autodiscover()
 ## Nest-structure
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^sign-in/$', views.sign_in),
-    url(r'^sign-up/$', views.sign_up),
+    url(r'^login/$', apiViews.login),
+    url(r'^logout/$', apiViews.logout),
+    url(r'^signup/$', apiViews.signup),
     url(r'^index/$', views.index),
     url(r'^front/$', views.front),
     url(r'^profile/$', views.profile),
     url(r'^group/$', views.group),
+    
+    #
+    url(r'^group2/$', views.group2),
 )
