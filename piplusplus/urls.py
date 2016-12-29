@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf.urls import patterns, url, include
 from django.contrib import admin
 from app import views
+from app import views as apiView
 
 ## Bckended admin management
 admin.autodiscover()
@@ -24,7 +25,8 @@ admin.autodiscover()
 ## Nest-structure
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^sign-in/$', views.sign_in),
+    url(r'^login/$', apiView.login),
+    url(r'^logout/$', apiView.logout),
     url(r'^sign-up/$', views.sign_up),
     url(r'^index/$', views.index),
     url(r'^front/$', views.front),
