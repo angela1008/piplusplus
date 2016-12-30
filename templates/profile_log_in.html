@@ -12,10 +12,12 @@
 </head>
 
 <body>
+    {% if request.user.is_authenticated %}
     <nav class="deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
             <a href="index.html" class="nav-logo"></a>
             <ul class="right hide-on-med-and-down">
+                <li>{{request.user}} 您已經登入囉~<a href="/logout/" class="waves-effect waves-light btn deep-orange lighten-3">登出</a></li>
                 <li><a href="#"><i class="material-icons">notifications</i></a></li>
                 <li><a href="profile_owner.html"><i class="material-icons">person</i></a></li>
                 <li><a href="#"><i class="material-icons">more_vert</i></a></li>
@@ -53,23 +55,23 @@
                         <h5>基本資料</h5>
                         <div>
                             <p>性別
-                                <br>女</p>
+                                <br>{{userextension.gender}}</p>
                             <p>生日
-                                <br> 1995.2.29
+                                <br> {{userextension.birth}}
                             </p>
                             <p>地點
-                                <br>台北市</p>
+                                <br>{{userextension.location}}</p>
                             <p>E-mail
-                                <br>aaa@a.a.a</p>
+                                <br>{{user.email}}</p>
                         </div>
                     </div>
                     <div class="card-panel">
                         <h5>自我介紹</h5>
                         <div>
                             <p>簡介
-                                <br>...</p>
+                                <br>{{userextension.self_introduction}}</p>
                             <p>興趣
-                                <div class="chip">興趣1</div>
+                                <div class="chip">{{userextension.interest}}</div>
                                 <div class="chip">興趣2</div>
                                 <div class="chip">興趣3</div>
                             </p>
@@ -150,6 +152,9 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js "></script>
     <script src="../static/js/materialize.js "></script>
     <script src="../static/js/init.js "></script>
+    {% else %}
+    <p>authority not allow</p>
+    {% endif %}
 </body>
 
 </html>
