@@ -36,6 +36,7 @@ class Group(models.Model):
     leader = models.ForeignKey(User, on_delete=models.CASCADE)
     classification = models.ForeignKey(Classification, on_delete=models.CASCADE)
     group_introduction = models.TextField(max_length=254, blank=True, null=True)
+    join_number=models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     

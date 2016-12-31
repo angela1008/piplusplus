@@ -13,7 +13,7 @@ class ClassificationAdmin(admin.ModelAdmin):
     ist_display = ('id', 'name')
     
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'leader', 'group_introduction', 'created_at', 'updated_at')
+    list_display = ('id', 'name', 'leader', 'group_introduction', 'join_number', 'created_at', 'updated_at')
 
 class MembershipAdmin(admin.ModelAdmin):
     list_display = ('id', 'member', 'group', 'date_joined', 'is_leader', 'created_at', 'updated_at')

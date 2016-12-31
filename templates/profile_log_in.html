@@ -19,7 +19,7 @@
             <ul class="right hide-on-med-and-down">
                 <li>{{request.user}} 您已經登入囉~<a href="/logout/" class="waves-effect waves-light btn deep-orange lighten-3">登出</a></li>
                 <li><a href="#"><i class="material-icons">notifications</i></a></li>
-                <li><a href="profile_owner.html"><i class="material-icons">person</i></a></li>
+                <li><a href="{% url 'user_profile'%}?id={{request.user.id}}"><i class="material-icons">person</i></a></li>
                 <li><a href="#"><i class="material-icons">more_vert</i></a></li>
             </ul>
             <ul id="nav-mobile" class="side-nav">
@@ -71,9 +71,9 @@
                             <p>簡介
                                 <br>{{userextension.self_introduction}}</p>
                             <p>興趣
-                                <div class="chip">{{userextension.interest}}</div>
-                                <div class="chip">興趣2</div>
-                                <div class="chip">興趣3</div>
+                                {% for userinterest in userinterests %}
+                                <div class="chip">{{userinterest.name}}</div>
+                                {% endfor %}
                             </p>
                         </div>
                     </div>
