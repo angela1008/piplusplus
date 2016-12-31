@@ -87,62 +87,57 @@
                             <li class="tab col s3"><a href="#test3">擁有的</a></li>
                         </ul>
                         <div class="row">
+                            <!--all-->
+                            {% for membership in memberships %}
                             <div class="col s6">
                                 <div class="card group-card">
                                     <div class="card-image">
                                         <img src="../static/images/img1.png">
                                     </div>
                                     <div class="card-content">
-                                        <span class="card-title">Card Title</span>
-                                        <p>87位成員</p>
+                                        <span class="card-title">{{membership.group}}</span>
+                                        <p>{{membership.group.join_number}}位成員</p>
                                     </div>
                                     <div class="card-action">
                                         <a href="#">加入</a>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
+                            <!--join-->
+                            {% for join_group in join_groups %}
                             <div class="col s6">
                                 <div class="card group-card">
                                     <div class="card-image">
                                         <img src="../static/images/img1.png">
                                     </div>
                                     <div class="card-content">
-                                        <span class="card-title">Card Title</span>
-                                        <p>87位成員</p>
+                                        <span class="card-title">{{join_group.group}}</span>
+                                        <p>{{join_group.group.join_number}}位成員</p>
                                     </div>
                                     <div class="card-action">
                                         <a href="#">加入</a>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
+                            <!--leader-->
+                            {% for leader_group in leader_groups %}
                             <div class="col s6">
                                 <div class="card group-card">
                                     <div class="card-image">
                                         <img src="../static/images/img1.png">
                                     </div>
                                     <div class="card-content">
-                                        <span class="card-title">Card Title</span>
-                                        <p>87位成員</p>
+                                        <span class="card-title">{{leader_group.name}}</span>
+                                        <p>{{leader_group.join_number}}位成員</p>
                                     </div>
                                     <div class="card-action">
                                         <a href="#">加入</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col s6">
-                                <div class="card group-card">
-                                    <div class="card-image">
-                                        <img src="../static/images/img1.png">
-                                    </div>
-                                    <div class="card-content">
-                                        <span class="card-title">Card Title</span>
-                                        <p>87位成員</p>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="#">加入</a>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
