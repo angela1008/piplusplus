@@ -16,8 +16,7 @@
         <div class="nav-wrapper nav-container">
             <a href="index.html" class="nav-logo"></a>
             <ul class="right hide-on-med-and-down">
-                <li>已經擁有帳號?<a href="/login/" class="waves-effect waves-light btn deep-orange lighten-3 inline-element">登入</a></li>
-
+                <li>已經擁有帳號?<a href="sign_in.html" class="waves-effect waves-light btn deep-orange lighten-3 inline-element">登入</a></li>
             </ul>
             <ul id="nav-mobile" class="side-nav">
                 <li><a href="#">Navbar Link</a></li>
@@ -34,31 +33,43 @@
                                 <object id="logo" class="responsive-img" width="130px" type="image/svg+xml" data="../static/images/logo.svg">Your browser does not support SVG.</object>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s8 offset-s2">
-                                <input id="id" type="text" class="validate">
-                                <label for="id">ID</label>
+                        <form method="post" action="">
+                        {% load widget_tweaks %}
+                        
+                            <div class="row">
+                                <div class="input-field col s8 offset-s2">
+                                    {{ form.username|add_class:"validate" }}
+                                    {{ form.username.errors }}
+                                    <label for="id">ID</label>
+                                </div>
+                                <div class="input-field col s8 offset-s2">
+                                    {{ form.email|add_class:"validate" }}
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="input-field col s8 offset-s2">
+                                    {{ form.password1|add_class:"validate" }}
+                                    {{ form.password1.errors }}
+                                    <label for="password">Password</label>
+                                </div>
+                                <div class="input-field col s8 offset-s2">
+                                    {{ form.password2|add_class:"validate" }}
+                                    {{ form.password2.errors }}
+                                    <label for="password">Password Confirm</label>
+                                </div>
                             </div>
-                            <div class="input-field col s8 offset-s2">
-                                <input id="email" type="email" class="validate">
-                                <label for="email">Email</label>
-                            </div>
-                            <div class="input-field col s8 offset-s2">
-                                <input id="password" type="password" class="validate">
-                                <label for="password">Password</label>
-                            </div>
-                        </div>
+                            <center><input type="submit" value="註冊"></center>
+                        </form>
                         <h2 class="strikeThrough"><span>或</span></h2>
                         <div class="row">
                             <a class="waves-effect waves-light btn indigo lighten-1 col s8 offset-s2">以 facebook 註冊</a>
                         </div>
                         <div class="divider"></div>
                         <div class="card-action center">
-                            <form method="post" action="">
-                                {{ form.as_p }}
+                            
+                                
                           <!--<a href="/login/">註冊</a>-->
-                              <input type="submit" value="註冊">
-                            </form>
+                              
+
                         </div>
                     </div>
                 </div>
