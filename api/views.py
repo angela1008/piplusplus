@@ -28,4 +28,14 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/index/')
-    
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return HttpResponseRedirect('/login/')
+    else:
+        form = UserCreationForm()
+    return render_to_response('sign_up.html',locals())
+
