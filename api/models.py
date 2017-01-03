@@ -4,38 +4,56 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
-## User
+## User Extension
 class UserExtension(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=20, blank=True, null=True)
     birth = models.DateField(blank=True, null=True)
     location = models.CharField(max_length=50, blank=True, null=True)
     self_introduction = models.TextField(max_length=254, blank=True, null=True)
-    interest = models.CharField(max_length=254, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
-    
-# ## Club
-class Club(models.Model):
-    name = models.CharField(max_length=50)
-    leader = models.ForeignKey(User, on_delete=models.CASCADE)
-    club_introduction = models.TextField(max_length=254, blank=True, null=True)
+
+## User's Interests
+class UserInterest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=254)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+
+## Group's classification
+class Classification(models.Model):
+    name = models.CharField(max_length=254)
     
-    ## Return club name instead of "Club Object"
     def __unicode__(self):
       return self.name
     
+## Group
+class Group(models.Model):
+    name = models.CharField(max_length=50)
+    leader = models.ForeignKey(User, on_delete=models.CASCADE)
+    classification = models.ForeignKey(Classification, on_delete=models.CASCADE)
+    group_introduction = models.TextField(max_length=254, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    
+    ## Return group name instead of "Group Object"
+    def __unicode__(self):
+      return self.name
+      
     
 class Membership(models.Model):
     member = models.ForeignKey(User, on_delete=models.CASCADE)
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
     date_joined = models.DateField(auto_now_add=True)
     is_leader = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    
+    def __unicode__(self):
+      return str(self.member)
     
 
 ## Event
@@ -53,15 +71,16 @@ class Event(models.Model):
 
 
 class EventShip(models.Model):
-    member = models.ForeignKey(User, on_delete=models.CASCADE)
+    member = models.ForeignKey(Membership, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    is_leader = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
 
-## Progress
-class Progress(models.Model):
+## Task
+class Task(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField(max_length=254,blank=True, null=True)
     deadline = models.DateField()
@@ -73,10 +92,10 @@ class Progress(models.Model):
         return self.title
 
 
-class ProgressShip(models.Model):
-    member = models.ForeignKey(User, on_delete=models.CASCADE)
-    progress = models.ForeignKey(Progress, on_delete=models.CASCADE)
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+class TaskShip(models.Model):
+    member = models.ForeignKey(Membership, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
     is_finished = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
@@ -96,9 +115,12 @@ class Discussion(models.Model):
         return self.title
     
 class DiscussionShip(models.Model):
-    member = models.ForeignKey(User, on_delete=models.CASCADE)
+    member = models.ForeignKey(Membership, on_delete=models.CASCADE)
     discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    is_heart = models.BooleanField(default=False)
+    is_comment = models.BooleanField(default=False)
+    is_share = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     
@@ -112,9 +134,9 @@ class Comment(models.Model):
         return self.content
 
 class CommentShip(models.Model):
-    member = models.ForeignKey(User, on_delete=models.CASCADE)
+    member = models.ForeignKey(Membership, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    is_heart = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
