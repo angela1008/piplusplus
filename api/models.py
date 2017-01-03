@@ -32,11 +32,11 @@ class Classification(models.Model):
     
 ## Group
 class Group(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     leader = models.ForeignKey(User, on_delete=models.CASCADE)
     classification = models.ForeignKey(Classification, on_delete=models.CASCADE)
     group_introduction = models.TextField(max_length=254, blank=True, null=True)
-    join_number=models.IntegerField(default=1)
+    join_number = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     
