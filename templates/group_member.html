@@ -8,6 +8,7 @@
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../static/css/mdDateTimePicker.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="../static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
@@ -114,23 +115,24 @@
                             <li class="tab col s2"><a href="#note">筆記</a></li>
                         </ul>
                     </div>
-                    <div class="fixed-action-btn">
+                    <div class="fixed-action-btn click-to-toggle
+                    ">
                         <a class="btn-floating btn-large teal accent-2">
                             <i class="large material-icons">add</i>
                         </a>
                         <ul>
                             <li>
-                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="討論">
+                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="討論" href="#modal-discuss">
                                     <i class="material-icons">forum</i>
                                 </a>
                             </li>
                             <li>
-                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="活動">
+                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="活動" href="#modal-event">
                                     <i class="material-icons">event</i>
                                 </a>
                             </li>
                             <li>
-                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="進度">
+                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="進度" href="#modal-task">
                                     <i class="material-icons">check_circle</i>
                                 </a>
                             </li>
@@ -141,20 +143,113 @@
                             </li>
                         </ul>
                     </div>
-                    <div id="discussion">
-                        <div class="card-panel">
-                            <div class="valign-wrapper">
-                                <div class="col s1">
-                                    <img src="../static/images/img2.png" alt="" class="title-circle circle">
-                                </div>
-                                <div class="col s11">
-                                    <h5 class="bold post-header">Name</h5>
-                                    <div class="right post-header grey-text"><i class="material-icons">more_vert</i></div>
+                    <div id="modal-discuss" class="modal modal-fixed-footer small-modal">
+                        <div class="modal-content">
+                            <div class="post-input">
+                                <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                <span class="title">Name
+                                <i class="material-icons tiny">chevron_right</i>
+                                <a href="#">Group Name</a></span>
+                                <div class="input-field">
+                                    <textarea id="discusstext" class="materialize-textarea"></textarea>
+                                    <label for="discusstext">說點什麼……</label>
                                 </div>
                             </div>
-                            <div class="valign-wrapper">
-                                <div class="offset-s1 col s11 row">
-                                    <span>comments...............................................................................................</span>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">送出</a>
+                        </div>
+                    </div>
+                    <div id="modal-event" class="modal modal-fixed-footer small-modal">
+                        <div class="modal-content">
+                            <div class="post-input">
+                                <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                <span class="title">Name
+                                <i class="material-icons tiny">chevron_right</i>
+                                <a href="#">Group Name</a></span>
+                                <div class="input-field">
+                                    <input id="event-name" type="text" class="validate">
+                                    <label for="event-name">活動名稱</label>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="event-start-date" type="text" class="validate">
+                                        <label for="event-start-date">開始日期</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="event-start-time" type="text" class="validate">
+                                        <label for="event-start-time">開始時間</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="event-end-date" type="text" class="validate">
+                                        <label for="event-end-date">結束日期</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="event-end-time" type="text" class="validate">
+                                        <label for="event-end-time">結束時間</label>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <input id="event-location" type="text" class="validate">
+                                    <label for="event-location">活動地點</label>
+                                </div>
+                                <div class="input-field">
+                                    <textarea id="eventtext" class="materialize-textarea"></textarea>
+                                    <label for="eventtext">說點什麼……</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">送出</a>
+                        </div>
+                    </div>
+                    <div id="modal-task" class="modal modal-fixed-footer small-modal">
+                        <div class="modal-content">
+                            <div class="post-input">
+                                <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                <span class="title">Name
+                                <i class="material-icons tiny">chevron_right</i>
+                                <a href="#">Group Name</a></span>
+                                <div class="input-field">
+                                    <input id="task-name" type="text" class="validate">
+                                    <label for="task-name">進度名稱</label>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="task-end-date" type="text" class="validate">
+                                        <label for="task-end-date">截止日期</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="task-end-time" type="text" class="validate">
+                                        <label for="task-end-time">截止時間</label>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <textarea id="tasktext" class="materialize-textarea"></textarea>
+                                    <label for="tasktext">說點什麼……</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">送出</a>
+                        </div>
+                    </div>
+                    <div id="discussion">
+                        <div class="card-panel">
+                            <div class="post">
+                                <div class="post-content">
+                                    <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                    <span class="title">Name</span>
+                                    <p>First Line
+                                        <br> Second Line
+                                    </p>
+                                    <div class="action-buttons secondary-content">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons">more_vert</i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="valign-wrapper">
@@ -211,16 +306,12 @@
                                     </div>
                                 </li>
                             </ul>
-                            <div class="talign-wrapper">
-                                <div class="col s1">
-                                    <img src="../static/images/img2.png" alt="" class="title-circle">
-                                    <!-- notice the "circle" class -->
-                                </div>
-                                <div class="input-field col s11">
+                            <div class="comment-input">
+                                <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                <div class="input-field">
                                     <textarea id="textarea2" class="materialize-textarea"></textarea>
-                                    <label for="textarea2">Textarea</label>
+                                    <label for="textarea2">發表留言</label>
                                 </div>
-                                <div class="divider"></div>
                             </div>
                         </div>
                     </div>
@@ -380,7 +471,12 @@
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="../static/js/materialize.js"></script>
+    <script src="../static/js/moment.min.js"></script>
+    <script src="../static/js/draggabilly.pkgd.min.js"></script>
+    <script src="../static/js/mdDateTimePicker.js"></script>
     <script src="../static/js/init.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script src="../static/js/group.js"></script>
 </body>
 
 </html>
