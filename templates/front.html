@@ -14,12 +14,12 @@
 <body>
      <nav class="nav-extended deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
-            <a href="/index/" class="nav-logo"></a>
+            <a href="{% url 'own_front' %}?id={{request.user.id}}" class="nav-logo"></a>
             <ul class="right hide-on-med-and-down">
                 {% if request.user.is_authenticated %}
                 <li>{{request.user}} 您已經登入囉~<a href="/logout/" class="waves-effect waves-light btn deep-orange lighten-3">登出</a></li>
                 <li><a href="#"><i class="material-icons">notifications</i></a></li>
-                <li><a href="{% url 'own_profile'%}?id={{request.user.id}}"><i class="material-icons">person</i></a></li>
+                <li><a href="{% url 'own_profile' %}?id={{request.user.id}}"><i class="material-icons">person</i></a></li>
                 <li><a href="#"><i class="material-icons">more_vert</i></a></li>
                 {% else %}
                 <li> 您尚未登入喔~<a href="/login/" class="waves-effect waves-light btn deep-orange lighten-3">登入</a></li>
@@ -115,11 +115,11 @@
                                 <div class="row">
                                     <div class="inpit-field">
                                         <!--leader field will pass directly,does not require the user to complete.-->
-                                        <input type="hidden" name="leader" value="{{request.user.id}}">
+                                        <input type="hidden" name="leader_id" value="{{request.user.id}}">
                                     </div>
                                 </div>
                                 <div class=" modal-action modal-close waves-effect waves-green btn-flat">
-                                    <input type="submit" name="ok" value="新增">
+                                    <input type="submit" name="add_group" value="新增">
                                 </div>
                             </div>
                         </div>
@@ -129,6 +129,9 @@
                 <div id="all" class="col s12">
                     <div class="container">
                         <div class="section">
+                            {% if is_join %}
+                            <p>* 您已經加入該社團囉!</p>
+                            {% endif %}
                             <!--<h5 class="light">熱門</h5>-->
                             <!--<div class="row">-->
                             <!--    {% for leader_group in leader_groups %}-->
@@ -161,12 +164,18 @@
                                             <img src="../static/images/img1.png">
                                         </div>
                                         <div class="card-content">
-                                            <span class="card-title"><a href="{% url 'own_group'%}?id={{group.id}}">{{group.name}}</a></span>
+                                            <span class="card-title"><a href="{% url 'own_group' %}?id={{group.id}}">{{group.name}}</a></span>
                                             <p>{{group.join_number}}位成員</p>
                                         </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
+                                        {% if request.user.is_authenticated %}
+                                        <form action="" method="post">
+                                            <input type="hidden" name="member_id" value="{{request.user.id}}">
+                                            <input type="hidden" name="group_id" value="{{group.id}}">
+                                            <div class="card-action">
+                                                <input type="submit" name="join_group" value="加入">
+                                            </div>
+                                        </form>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -188,11 +197,8 @@
                                             <img src="../static/images/img1.png">
                                         </div>
                                         <div class="card-content">
-                                            <span class="card-title"><a href="{% url 'own_group'%}?id={{join_group.group.id}}">{{join_group.group.name}}</a></span>
+                                            <span class="card-title"><a href="{% url 'own_group' %}?id={{join_group.group.id}}">{{join_group.group.name}}</a></span>
                                             <p>{{join_group.group.join_number}}位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
                                         </div>
                                     </div>
                                 </div>
@@ -217,11 +223,8 @@
                                             <img src="../static/images/img1.png">
                                         </div>
                                         <div class="card-content">
-                                            <span class="card-title"><a href="{% url 'own_group'%}?id={{leader_group.id}}">{{leader_group.name}}</a></span>
+                                            <span class="card-title"><a href="{% url 'own_group' %}?id={{leader_group.id}}">{{leader_group.name}}</a></span>
                                             <p>{{leader_group.join_number}}位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
                                         </div>
                                     </div>
                                 </div>

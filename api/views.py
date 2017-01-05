@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.db.models import Q
+from django.db.models import F
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 
@@ -27,7 +28,7 @@ def login(request):
     if user is not None and user.is_active:
         # Maintain user's login state
         auth.login(request, user)
-        return HttpResponseRedirect('/front/')
+        return HttpResponseRedirect('/front/?id=%d' %request.user.id)
     else:
         return render_to_response('sign_in.html')
         
@@ -36,14 +37,51 @@ def logout(request):
     return HttpResponseRedirect('/index/')
 
 # TODO not choose classification will error
-# TODO after create a new group render to own group page 
 # TODO classification(half)
 def front(request):
+    """
+    Get groups from database.
+    """
+    # NEED DYNAMIC REQUEST "GET"
+    if request.method == 'GET':
+        user_id = request.GET.get('id', None)
+        
+        # return classifications to front.html
+        classifications = models.Classification.objects.all()
+        
+        # get latest 8 groups
+        groups = models.Group.objects.order_by('-created_at')[:8]
+        # join
+        join_groups = models.Membership.objects.filter(Q(member=user_id) & Q(is_leader=False))
+        # leader
+        leader_groups = models.Group.objects.filter(leader=user_id)
+        return render_to_response('front.html',locals())
+        
+    """
+    A new user add to a new group.
+    """
+    is_join = False
+    if 'join_group' in request.POST:
+        user_id = request.POST.get('member_id', None)
+        group_id = request.POST.get('group_id', None)
+        user = User.objects.get(id=user_id)
+        group = models.Group.objects.get(id=group_id)
+        try:
+            models.Membership.objects.get(Q(member=user) & Q(group=group))
+        except ObjectDoesNotExist:
+            models.Membership.objects.create(member=user, group=group, is_leader=False)
+            # must use filter instead of get
+            models.Group.objects.filter(id=group_id).update(join_number=F('join_number')+1)
+            return HttpResponseRedirect('/group/?id=%d' %group.id)
+        is_join = True
+        # will error
+        return render_to_response('front.html',locals())
+        
     """
     Add a new group with judging the error when filling the field.
     (not filled in, existing group name)
     """
-    classifications = models.Classification.objects.all()
+    # classifications = models.Classification.objects.all()
     
     error = False
     leader_error = False
@@ -51,8 +89,8 @@ def front(request):
     classification_error = False
     group = None
     
-    if request.method == 'POST':
-        leader_id = request.POST.get('leader', None)
+    if 'add_group' in request.POST:
+        leader_id = request.POST.get('leader_id', None)
         leader = User.objects.get(id=leader_id)
         
         name = request.POST.get('name')
@@ -72,24 +110,14 @@ def front(request):
                 create_group = models.Group.objects.create(leader=leader, name=name, classification=classification)
                 models.Membership.objects.create(member=leader, group=create_group, is_leader=True)
                 group = models.Group.objects.get(id=create_group.id)
-            # if normal using then return directly,not got to error=True
-            return render_to_response('front.html',locals())
+            # if normal turn to own group page, not got to error=True
+            return HttpResponseRedirect('/group/?id=%d' %group.id)
             
         # if "ObjectDoesExist" then set error and return to front page
         error = True
+        # will error
         return render_to_response('front.html',locals())
-    
-    # return groups
-    if request.method == 'GET':
-        user_id = request.GET.get('id', None)
-        
-        # get latest 8 groups
-        groups = models.Group.objects.order_by('-created_at')[:8]
-        # join
-        join_groups = models.Membership.objects.filter(Q(member=user_id) & Q(is_leader=False))
-        # leader
-        leader_groups = models.Group.objects.filter(leader=user_id)
-        return render_to_response('front.html',locals())
+
     
 def profile(request):
     """
