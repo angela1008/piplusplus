@@ -91,3 +91,26 @@ def front(request):
         leader_groups = models.Group.objects.filter(leader=user_id)
         return render_to_response('front.html',locals())
     
+def profile(request):
+    """
+    Query user's profile detail, include judge not exists data.
+    """
+    user_id = request.GET.get('id', None)
+    
+    ## Profile
+    user = User.objects.get(id=user_id)
+    try:
+        models.UserExtension.objects.get(user=user_id)
+        models.UserInterest.objects.filter(user=user_id)
+    except ObjectDoesNotExist:
+        userextension = models.UserExtension.objects.create(user=user, gender='', birth=None, location='', self_introduction='')
+        userinterests = models.UserInterest.objects.create(user=user, name='')
+    
+    ## Group
+     # all
+    memberships = models.Membership.objects.filter(member=user_id)
+    # join
+    join_groups = models.Membership.objects.filter(Q(member=user_id) & Q(is_leader=False))
+    # leader
+    leader_groups = models.Group.objects.filter(leader=user_id)
+    return render_to_response('profile_log_in.html',locals())

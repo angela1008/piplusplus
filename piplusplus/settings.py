@@ -80,14 +80,14 @@ WSGI_APPLICATION = 'piplusplus.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'c9',
-        'USER': 'u10216026',
-        'PASSWORD': '',
-        'HOST': '',
-        'Port': 3306,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'c9',
+        # 'USER': 'u10216026',
+        # 'PASSWORD': '',
+        # 'HOST': '',
+        # 'Port': 3306,
     }
 }
 
