@@ -8,7 +8,9 @@ from django.db.models import Q
 from django.db.models import F
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+#from django.contrib.auth.forms import UserCreationForm
 
+from api.forms import UserCreateForm as UserCreationForm
 from api import models
 
 # Create your views here.
@@ -28,15 +30,28 @@ def login(request):
     if user is not None and user.is_active:
         # Maintain user's login state
         auth.login(request, user)
-        return HttpResponseRedirect('/front/?id=%d' %request.user.id)
+        if 'next' in request.GET:
+            return HttpResponseRedirect('/'+request.GET['next'])
+        else:
+            return HttpResponseRedirect('/front/?id=%d' %request.user.id)
     else:
         return render_to_response('sign_in.html')
         
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/index/')
+    
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return HttpResponseRedirect('/login/')
 
-# TODO not choose classification will error
+    else:
+        form = UserCreationForm()
+    return render_to_response('sign_up.html', locals())
+    
 # TODO classification(half)
 def front(request):
     """
@@ -84,37 +99,33 @@ def front(request):
     # classifications = models.Classification.objects.all()
     
     error = False
-    leader_error = False
     name_error = False
     classification_error = False
-    group = None
     
     if 'add_group' in request.POST:
         leader_id = request.POST.get('leader_id', None)
         leader = User.objects.get(id=leader_id)
         
-        name = request.POST.get('name')
-        # judge whether the group name exists
-        try:
-            models.Group.objects.get(name=name)
-        except ObjectDoesNotExist:
-            classification_id = request.POST.get('classification')
-            classification = models.Classification.objects.get(id=classification_id)
+        name = request.POST.get('name', None)
+        if not name :
+            name_error = True
             
-            # judge whether the field is filled in
-            if not name :
-                name_error = True
-            if not classification:
-                classification_error = True
-            if not leader_error and not name_error and not classification_error:
+        classification_id = request.POST.get('classification')
+        if not classification_id:
+            classification_error = True
+        
+        # judge whether the group name exists
+        if not name_error and not classification_error:
+            if models.Group.objects.filter(name=name).exists():
+                error = True
+            else:
+                classification = models.Classification.objects.get(id=classification_id)
+                
                 create_group = models.Group.objects.create(leader=leader, name=name, classification=classification)
                 models.Membership.objects.create(member=leader, group=create_group, is_leader=True)
                 group = models.Group.objects.get(id=create_group.id)
-            # if normal turn to own group page, not got to error=True
-            return HttpResponseRedirect('/group/?id=%d' %group.id)
-            
-        # if "ObjectDoesExist" then set error and return to front page
-        error = True
+                return HttpResponseRedirect('/group/?id=%d' %group.id)
+                
         # will error
         return render_to_response('front.html',locals())
 
@@ -142,3 +153,16 @@ def profile(request):
     # leader
     leader_groups = models.Group.objects.filter(leader=user_id)
     return render_to_response('profile_log_in.html',locals())
+    
+def group(request):
+    group_id = request.GET.get('id',None)
+    if group_id:
+        user_in_group = False
+        if request.user.is_authenticated():
+            group = models.Group.objects.get(id=group_id)
+            memberships = models.Membership.objects.filter(group=group)
+            for membership in memberships:
+                if membership.member == request.user:
+                    user_in_group = True
+                    break
+        return render(request, 'group.html',locals())

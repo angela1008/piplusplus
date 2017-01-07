@@ -31,5 +31,5 @@ urlpatterns = patterns('',
     url(r'^index/$', views.index),
     url(r'^front/$', apiViews.front, name='own_front'),
     url(r'^profile/$', apiViews.profile, name='own_profile'),
-    url(r'^group/$', views.group, name='own_group'),
+    url(r'^group/$', apiViews.group, name='own_group'),
 )

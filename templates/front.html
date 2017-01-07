@@ -78,7 +78,7 @@
                                     <div class="input-field col s12">
                                         <input type="text" name="name" class="validate">
                                         <label for="name">名稱</label>
-                                         {% if name_error %}
+                                        {% if name_error %}
                                         <p>* 名稱輸入不完整，請重新輸入</p>
                                         {% endif %}
                                         {% if error %}
@@ -94,10 +94,10 @@
                                             {% for classification in classifications %}
                                             <option value="{{classification.id}}" data-icon="../static/images/img1.png" class="left circle">{{classification.name}}</option>
                                             {% endfor %}
-                                            {% if classification_error %}
-                                            <p>* 分類輸入不完整，請重新輸入</p>
-                                            {% endif %}
                                         </select>
+                                        {% if classification_error %}
+                                        <p>* 分類輸入不完整，請重新輸入</p>
+                                        {% endif %}
                                         <label>分類</label>
                                     </div>
                                 </div>

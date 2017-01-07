@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'api',
     'app',
 ]
@@ -101,7 +102,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
+    'OPTIONS': {
+            'min_length': 8,
+        }}
+    ,
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
