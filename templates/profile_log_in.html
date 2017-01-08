@@ -15,7 +15,7 @@
     {% if request.user.is_authenticated %}
     <nav class="deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
-            <a href="{% url 'own_front' %}?id={{request.user.id}}" class="nav-logo"></a>
+            <a href="{% url 'own_all_front' %}?id={{request.user.id}}" class="nav-logo"></a>
             <ul class="right hide-on-med-and-down">
                 <li>{{request.user}} 您已經登入囉~<a href="/logout/" class="waves-effect waves-light btn deep-orange lighten-3">登出</a></li>
                 <li><a href="#"><i class="material-icons">notifications</i></a></li>

@@ -44,20 +44,21 @@
                 <div class="catagory-list pin-top" style="top: 0px;">
                     <div style="height: 1px;">
                         <ul class="section table-of-contents">
-                            <li><a href="" class="active"><i class="material-icons tiny">face</i>全部</a></li>
-                            <li><a href=""><i class="material-icons tiny">computer</i>資訊科技</a></li>
-                            <li><a href=""><i class="material-icons tiny">build</i>工程建築</a></li>
-                            <li><a href=""><i class="material-icons tiny">functions</i>數理化學</a></li>
-                            <li><a href=""><i class="material-icons tiny">healing</i>醫藥衛生</a></li>
-                            <li><a href=""><i class="material-icons tiny">local_florist</i>自然科學</a></li>
-                            <li><a href=""><i class="material-icons tiny">palette</i>藝術設計</a></li>
-                            <li><a href=""><i class="material-icons tiny">local_library</i>人文社會</a></li>
-                            <li><a href=""><i class="material-icons tiny">attach_money</i>財經管理</a></li>
-                            <li><a href=""><i class="material-icons tiny">translate</i>語言學習</a></li>
-                            <li><a href=""><i class="material-icons tiny">fitness_center</i>運動遊憩</a></li>
-                            <li><a href=""><i class="material-icons tiny">assignment</i>資格檢定</a></li>
-                            <li><a href=""><i class="material-icons tiny">school</i>升學考試</a></li>
-                            <li><a href=""><i class="material-icons tiny">extension</i>其他</a></li>
+                            <li><a href="{% url 'own_front' %}?id={{request.user.id}}" class="active"><i class="material-icons tiny">face</i>全部</a></li>
+                            <li><a href="{% url 'own_computer_front' %}?id={{request.user.id}}"><i class="material-icons tiny">computer</i>資訊科技</a></li>
+                            <li><a href="{% url 'own_build_front' %}?id={{request.user.id}}"><i class="material-icons tiny">build</i>工程建築</a></li>
+                            <li><a href="{% url 'own_math_front' %}?id={{request.user.id}}"><i class="material-icons tiny">functions</i>數理化學</a></li>
+                            <li><a href="{% url 'own_healing_front' %}?id={{request.user.id}}"><i class="material-icons tiny">healing</i>醫藥衛生</a></li>
+                            <li><a href="{% url 'own_nature_front' %}?id={{request.user.id}}"><i class="material-icons tiny">local_florist</i>自然科學</a></li>
+                            <li><a href="{% url 'own_art_front' %}?id={{request.user.id}}"><i class="material-icons tiny">palette</i>藝術設計</a></li>
+                            <li><a href="{% url 'own_society_front' %}?id={{request.user.id}}"><i class="material-icons tiny">local_library</i>人文社會</a></li>
+                            <li><a href="{% url 'own_manage_front' %}?id={{request.user.id}}"><i class="material-icons tiny">attach_money</i>財經管理</a></li>
+                            <li><a href="{% url 'own_language_front' %}?id={{request.user.id}}"><i class="material-icons tiny">translate</i>語言學習</a></li>
+                            <li><a href="{% url 'own_sport_front' %}?id={{request.user.id}}"><i class="material-icons tiny">fitness_center</i>運動遊憩</a></li>
+                            <li><a href="{% url 'own_qulification_front' %}?id={{request.user.id}}"><i class="material-icons tiny">assignment</i>資格檢定</a></li>
+                            <li><a href="{% url 'own_test_front' %}?id={{request.user.id}}"><i class="material-icons tiny">school</i>升學考試</a></li>
+                            <li><a href="{% url 'own_other_front' %}?id={{request.user.id}}"><i class="material-icons tiny">extension</i>其他</a></li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -132,45 +133,49 @@
                             {% if is_join %}
                             <p>* 您已經加入該社團囉!</p>
                             {% endif %}
-                            <!--<h5 class="light">熱門</h5>-->
-                            <!--<div class="row">-->
-                            <!--    {% for leader_group in leader_groups %}-->
-                            <!--    <div class="col s6 m3">-->
-                            <!--        <div class="card group-card">-->
-                            <!--            <div class="card-image">-->
-                            <!--                <img src="../static/images/img1.png">-->
-                            <!--            </div>-->
-                            <!--            <div class="card-content">-->
-                            <!--                <span class="card-title"><a href="/group/">{{leader_group.name}}</a></span>-->
-                            <!--                <p>{{leader_group.join_number}}位成員</p>-->
-                            <!--            </div>-->
-                            <!--            {% if request.user.is_authenticated %}-->
-                            <!--            <div class="card-action">-->
-                            <!--                <a href="#">加入</a>-->
-                            <!--            </div>-->
-                            <!--            {% endif %}-->
-                            <!--        </div>-->
-                            <!--    </div>-->
-                            <!--    {% endfor %}-->
-                            <!--</div>-->
-                        </div>
-                        <div class="section">
-                            <h5 class="light">最新</h5>
+                            <h5 class="light">熱門</h5>
                             <div class="row">
-                                {% for group in groups %}
+                                {% for hot_group in hot_groups %}
                                 <div class="col s6 m3">
                                     <div class="card group-card">
                                         <div class="card-image">
                                             <img src="../static/images/img1.png">
                                         </div>
                                         <div class="card-content">
-                                            <span class="card-title"><a href="{% url 'own_group' %}?id={{group.id}}">{{group.name}}</a></span>
-                                            <p>{{group.join_number}}位成員</p>
+                                            <span class="card-title"><a href="/group?id={{hot_group.id}}">{{hot_group.name}}</a></span>
+                                            <p>{{hot_group.join_number}}位成員</p>
                                         </div>
                                         {% if request.user.is_authenticated %}
                                         <form action="" method="post">
                                             <input type="hidden" name="member_id" value="{{request.user.id}}">
-                                            <input type="hidden" name="group_id" value="{{group.id}}">
+                                            <input type="hidden" name="group_id" value="{{hot_group.id}}">
+                                            <div class="card-action">
+                                                <input type="submit" name="join_group" value="加入">
+                                            </div>
+                                        </form>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="section">
+                            <h5 class="light">最新</h5>
+                            <div class="row">
+                                {% for latest_group in latest_groups %}
+                                <div class="col s6 m3">
+                                    <div class="card group-card">
+                                        <div class="card-image">
+                                            <img src="../static/images/img1.png">
+                                        </div>
+                                        <div class="card-content">
+                                            <span class="card-title"><a href="{% url 'own_group' %}?id={{latest_group.id}}">{{latest_group.name}}</a></span>
+                                            <p>{{latest_group.join_number}}位成員</p>
+                                        </div>
+                                        {% if request.user.is_authenticated %}
+                                        <form action="" method="post">
+                                            <input type="hidden" name="member_id" value="{{request.user.id}}">
+                                            <input type="hidden" name="group_id" value="{{latest_group.id}}">
                                             <div class="card-action">
                                                 <input type="submit" name="join_group" value="加入">
                                             </div>

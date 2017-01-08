@@ -52,7 +52,6 @@ def signup(request):
         form = UserCreationForm()
     return render_to_response('sign_up.html', locals())
     
-# TODO classification(half)
 def front(request):
     """
     Get groups from database.
@@ -64,8 +63,10 @@ def front(request):
         # return classifications to front.html
         classifications = models.Classification.objects.all()
         
+        # get hot 8 groups
+        hot_groups = models.Group.objects.order_by('-join_number')[:8]
         # get latest 8 groups
-        groups = models.Group.objects.order_by('-created_at')[:8]
+        latest_groups = models.Group.objects.order_by('-created_at')[:8]
         # join
         join_groups = models.Membership.objects.filter(Q(member=user_id) & Q(is_leader=False))
         # leader
@@ -128,7 +129,45 @@ def front(request):
                 
         # will error
         return render_to_response('front.html',locals())
+        
+def computer_front(request):
+    return front(request)
+    
+def build_front(request):
+    return front(request)
 
+def math_front(request):
+    return front(request)
+    
+def healing_front(request):
+    return front(request)
+
+def nature_front(request):
+    return front(request)
+    
+def art_front(request):
+    return front(request)
+    
+def society_front(request):
+    return front(request)
+    
+def manage_front(request):
+    return front(request)
+    
+def language_front(request):
+    return front(request)
+
+def sport_front(request):
+    return front(request)
+
+def qulification_front(request):
+    return front(request)
+    
+def test_front(request):
+    return front(request)
+
+def other_front(request):
+    return front(request)
     
 def profile(request):
     """
