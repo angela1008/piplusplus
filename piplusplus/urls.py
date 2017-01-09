@@ -30,7 +30,7 @@ urlpatterns = patterns('',
     url(r'^signup/$', apiViews.signup),
     url(r'^index/$', views.index),
     
-    url(r'^front/$', apiViews.all_front, name='own_all_front'),
+    url(r'^front/$', apiViews.front, name='own_front'),
     url(r'^computerfront/$', apiViews.computer_front, name='own_computer_front'),
     url(r'^buildfront/$', apiViews.build_front, name='own_build_front'),
     url(r'^mathfront/$', apiViews.math_front, name='own_math_front'),

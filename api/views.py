@@ -9,7 +9,7 @@ from django.db.models import F
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 #from django.contrib.auth.forms import UserCreationForm
-
+from datetime import datetime
 from api.forms import UserCreateForm as UserCreationForm
 from api import models
 
@@ -54,7 +54,7 @@ def signup(request):
     
 def front(request):
     """
-    Get groups from database.
+    Get all groups from database.
     """
     # NEED DYNAMIC REQUEST "GET"
     if request.method == 'GET':
@@ -68,7 +68,7 @@ def front(request):
         # get latest 8 groups
         latest_groups = models.Group.objects.order_by('-created_at')[:8]
         # join
-        join_groups = models.Membership.objects.filter(Q(member=user_id) & Q(is_leader=False))
+        join_groups = models.Membership.objects.filter(Q(member=user_id))
         # leader
         leader_groups = models.Group.objects.filter(leader=user_id)
         return render_to_response('front.html',locals())
@@ -129,45 +129,79 @@ def front(request):
                 
         # will error
         return render_to_response('front.html',locals())
+    
+    
+def get_classification_groups(request, classification_id):
+    """
+    Get groups from different classifications.
+    """
+    if request.method == 'GET':
+        user_id = request.GET.get('id', None)
+        
+        # return classifications to front.html
+        classifications = models.Classification.objects.all()
+        classification = models.Classification.objects.get(id=classification_id)
+        
+        # get groups
+        hot_groups = models.Group.objects.filter(classification=classification).order_by('-join_number')[:8]
+        latest_groups = models.Group.objects.filter(classification=classification).order_by('-created_at')[:8]
+        
+        join_groups = models.Membership.objects.filter(Q(member=user_id) & Q(classification=classification))
+        
+        leader_groups = models.Group.objects.filter(Q(leader=user_id) & Q(classification=classification))
+    return render_to_response('front.html',locals())
         
 def computer_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=1)
+    return get_classification_groups(request, classification.id)
     
 def build_front(request):
-    return front(request)
-
+    classification = models.Classification.objects.get(id=2)
+    return get_classification_groups(request, classification.id)
+    
 def math_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=3)
+    return get_classification_groups(request, classification.id)
     
 def healing_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=4)
+    return get_classification_groups(request, classification.id)
 
 def nature_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=5)
+    return get_classification_groups(request, classification.id)
     
 def art_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=6)
+    return get_classification_groups(request, classification.id)
     
 def society_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=7)
+    return get_classification_groups(request, classification.id)
     
 def manage_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=8)
+    return get_classification_groups(request, classification.id)
     
 def language_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=9)
+    return get_classification_groups(request, classification.id)
 
 def sport_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=10)
+    return get_classification_groups(request, classification.id)
 
 def qulification_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=11)
+    return get_classification_groups(request, classification.id)
     
 def test_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=12)
+    return get_classification_groups(request, classification.id)
 
 def other_front(request):
-    return front(request)
+    classification = models.Classification.objects.get(id=13)
+    return get_classification_groups(request, classification.id)
     
 def profile(request):
     """

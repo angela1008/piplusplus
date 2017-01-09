@@ -48,6 +48,7 @@ class Group(models.Model):
 class Membership(models.Model):
     member = models.ForeignKey(User, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    classification = models.ForeignKey(Classification, on_delete=models.CASCADE)
     date_joined = models.DateField(auto_now_add=True)
     is_leader = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -59,10 +60,15 @@ class Membership(models.Model):
 
 ## Event
 class Event(models.Model):
+    creater = models.ForeignKey(Membership, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField(max_length=254, blank=True, null=True)
-    time = models.DateField(blank=True, null=True)
-    location = models.CharField(max_length=100)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE,default="")
+    start_date = models.DateField(blank=True, null=True)
+    start_time = models.TimeField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    end_time = models.TimeField(blank=True, null=True)
+    location = models.CharField(max_length=100, null=True)
     join_number=models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
@@ -75,7 +81,7 @@ class EventShip(models.Model):
     member = models.ForeignKey(Membership, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
-    is_leader = models.BooleanField(default=False)
+    is_join = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
@@ -84,7 +90,9 @@ class EventShip(models.Model):
 class Task(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField(max_length=254,blank=True, null=True)
-    deadline = models.DateField()
+    group = models.ForeignKey(Group, on_delete=models.CASCADE,default="")
+    deadline_date = models.DateField(blank=True, null=True)
+    deadline_time = models.TimeField(blank=True, null=True)
     finished_number = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
@@ -104,8 +112,10 @@ class TaskShip(models.Model):
     
 ## Discussion
 class Discussion(models.Model):
+    creater = models.ForeignKey(Membership, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField(max_length=254)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE,default="")
     heart_number = models.IntegerField(default=0)
     comment_number = models.IntegerField(default=0)
     share_number = models.IntegerField(default=0)
@@ -115,26 +125,33 @@ class Discussion(models.Model):
     def __unicode__(self):
         return self.title
     
-class DiscussionShip(models.Model):
+class DiscussionHeart(models.Model):
     member = models.ForeignKey(Membership, on_delete=models.CASCADE)
     discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     is_heart = models.BooleanField(default=False)
-    is_comment = models.BooleanField(default=False)
-    is_share = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     
 class Comment(models.Model):
+    creater = models.ForeignKey(Membership, on_delete=models.CASCADE)
     content = models.TextField(max_length=254)
     heart_number = models.IntegerField(default=0)
+    discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE,default="")
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     
     def __unicode__(self):
         return self.content
-
-class CommentShip(models.Model):
+        
+class DiscussionComment(models.Model):
+    member = models.ForeignKey(Membership, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    
+class CommentHeart(models.Model):
     member = models.ForeignKey(Membership, on_delete=models.CASCADE)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
