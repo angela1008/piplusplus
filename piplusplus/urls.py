@@ -25,10 +25,11 @@ admin.autodiscover()
 ## Nest-structure
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', views.index),
+    
     url(r'^login/$', apiViews.login),
     url(r'^logout/$', apiViews.logout),
     url(r'^signup/$', apiViews.signup),
-    url(r'^index/$', views.index),
     
     url(r'^front/$', apiViews.front, name='own_front'),
     url(r'^computerfront/$', apiViews.computer_front, name='own_computer_front'),
@@ -45,6 +46,6 @@ urlpatterns = patterns('',
     url(r'^testfront/$', apiViews.test_front, name='own_test_front'),
     url(r'^otherfront/$', apiViews.other_front, name='own_other_front'),
     
-    url(r'^profile/$', apiViews.profile, name='own_profile'),
+    url(r'^profile/(?P<user>\w+)$', apiViews.profile, name='own_profile'),
     url(r'^group/$', apiViews.group, name='own_group'),
 )

@@ -3,7 +3,7 @@ from api import models as apiModels
 
 # Register your models here.
 class UserExtensionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'gender', 'birth', 'location', 'self_introduction', 'created_at', 'updated_at')
+    list_display = ('id', 'user', 'user_pic', 'gender', 'birth', 'location', 'self_introduction', 'created_at', 'updated_at')
     
 class UserInterestAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'name', 'created_at', 'updated_at')
@@ -13,14 +13,14 @@ class ClassificationAdmin(admin.ModelAdmin):
     ist_display = ('id', 'name')
     
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'leader', 'classification', 'group_introduction', 'join_number', 'created_at', 'updated_at')
+    list_display = ('id', 'name', 'group_pic', 'leader', 'classification', 'group_introduction', 'join_number', 'created_at', 'updated_at')
 
 class MembershipAdmin(admin.ModelAdmin):
     list_display = ('id', 'member', 'group', 'classification', 'date_joined', 'is_leader', 'created_at', 'updated_at')
 
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('id', 'creater', 'title', 'group', 'content', 'start_date','start_time' ,'location', 'join_number', 'created_at', 'updated_at')
+    list_display = ('id', 'creater', 'title', 'group', 'content', 'start_date','start_time' ,'end_date','end_time' ,'location', 'join_number', 'created_at', 'updated_at')
 
 class EventShipAdmin(admin.ModelAdmin):
 	list_display = ('id', 'member', 'event', 'group', 'is_join', 'created_at', 'updated_at')

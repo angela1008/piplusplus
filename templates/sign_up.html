@@ -12,6 +12,48 @@
 </head>
 
 <body>
+    
+    <script>
+    function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      testAPI();
+      
+       document.getElementById("email").innerHTML=response.mail;
+      
+        //  window.location.assign("https://piplusplus-u10216026.c9users.io/front");
+      
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = ' ';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = ' ';
+    }
+    }
+    
+    function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+    }
+    
+    
+    function logout(){
+    FB.logout(function(response) {
+   // Person is now logged out
+});
+    
+    }      
+    
+    </script>
     <nav class="deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
             <a href="index.html" class="nav-logo"></a>
@@ -26,43 +68,71 @@
     <main>
         <div class="container">
             <div class="row">
-                <form class="col s8 offset-s2">
+                <div class="col s8 offset-s2">
                     <div class="card">
+                        <form method="post" action="">
                         <div class="center">
                             <div class="logo-container">
                                 <object id="logo" class="responsive-img" width="130px" type="image/svg+xml" data="../static/images/logo.svg">Your browser does not support SVG.</object>
                             </div>
                         </div>
+                        
+                        {% load widget_tweaks %}
+                        
+                            <div class="row">
+                                <div class="input-field col s8 offset-s2">
+                                    {{ form.username|add_class:"validate" }}
+                                    {{ form.username.errors }}
+                                    <label for="id">ID</label>
+                                </div>
+                                <div class="input-field col s8 offset-s2">
+                                    {{ form.email|add_class:"validate" }}
+                                    <!--<input type="text" id="mail" >-->
+                                    <label for="email">Email</label>
+                                   
+                                   
+                                </div>
+                                <div class="input-field col s8 offset-s2">
+                                    {{ form.password1|add_class:"validate" }}
+                                  
+                                    {{ form.password1.errors }}
+                                    <label for="password">Password</label>
+                                </div>
+                                <div class="input-field col s8 offset-s2">
+                                    {{ form.password2|add_class:"validate" }}
+                                    {{ form.password2.errors }}
+                                    <label for="password">Password Confirm</label>
+                                </div>
+                            </div>
+                            
+                        
+                        <h2 class="strikeThrough"><span>或</span></h2>
+                        <div class="card-action center">
                         <div class="row">
-                            <div class="input-field col s8 offset-s2">
-                                <input id="id" type="text" class="validate">
-                                <label for="id">ID</label>
-                            </div>
-                            <div class="input-field col s8 offset-s2">
-                                <input id="email" type="email" class="validate">
-                                <label for="email">Email</label>
-                            </div>
-                            <div class="input-field col s8 offset-s2">
-                                <input id="password" type="password" class="validate">
-                                <label for="password">Password</label>
+                            <!--<a class="waves-effect waves-light btn indigo lighten-1 col s8 offset-s2">以 facebook 註冊</a>-->
+                             <fb:login-button scope="public_profile,email"  data-size="large" ata-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();">以facebook註冊                 </fb:login-button>
+                         <div id="status">
                             </div>
                         </div>
-                        <h2 class="strikeThrough"><span>或</span></h2>
-                        <div class="row">
-                            <a class="waves-effect waves-light btn indigo lighten-1 col s8 offset-s2">以 facebook 註冊</a>
                         </div>
                         <div class="divider"></div>
                         <div class="card-action center">
-                            <a href="front_log_in.html">註冊</a>
+                            
+                                
+                          <input type="submit" value="註冊">
+                              
+
                         </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
     </main>
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js "></script>
     <script src="../static/js/materialize.js "></script>
     <script src="../static/js/init.js "></script>
+    <script src="../static/js/fbjdk.js"></script>
 </body>
 
 </html>

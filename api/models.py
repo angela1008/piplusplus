@@ -7,6 +7,8 @@ from django.db import models
 ## User Extension
 class UserExtension(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=20, blank=True, null=True)
+    user_pic = models.ImageField(upload_to = 'static/media/user/', default = 'static/media/user/default.png')
     gender = models.CharField(max_length=20, blank=True, null=True)
     birth = models.DateField(blank=True, null=True)
     location = models.CharField(max_length=50, blank=True, null=True)
@@ -33,6 +35,7 @@ class Classification(models.Model):
 ## Group
 class Group(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    group_pic = models.ImageField(upload_to='static/media/group/', default='static/media/group/default.png')
     leader = models.ForeignKey(User, on_delete=models.CASCADE)
     classification = models.ForeignKey(Classification, on_delete=models.CASCADE)
     group_introduction = models.TextField(max_length=254, blank=True, null=True)
