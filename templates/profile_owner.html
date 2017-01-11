@@ -8,7 +8,10 @@
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../static/css/mdDateTimePicker.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="../static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../static/css/croppie.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../static/css/profile.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
 <body>
@@ -33,9 +36,11 @@
                         <div id="index-banner" class="parallax-container">
                             <div class="section no-pad-bot">
                                 <div class="container">
+                                    <div class="edit-header"><a href="#modal-edit-name"><i class="material-icons right">edit</i></a>
+                                    </div>
                                     <h3 class="header center teal-text text-lighten-2">Name</h3>
                                     <div class="row center">
-                                        <h5 class="header col s12 light">A modern responsive </h5>
+                                        <h5 class="header col s12 light">@id</h5>
                                     </div>
                                 </div>
                             </div>
@@ -44,35 +49,151 @@
                         <div class="profile-container">
                             <div class="row center">
                                 <img src="../static/images/img2.png" alt="" class="circle responsive-img profile-pic">
+                                <div class="upload-profile">
+                                    <a href="#modal-edit-pic">
+                                        <i class="medium material-icons">add_a_photo</i>
+                                    </a>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <div id="modal-edit-name" class="modal modal-fixed-footer small-modal">
+                        <div class="modal-content">
+                            <div class="row">
+                                <form class="col s12">
+                                    <h5 class="light">編輯姓名</h5>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="name" type="text" class="validate">
+                                            <label for="name">姓名</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">確定</a>
+                        </div>
+                    </div>
+                    <div id="modal-edit-pic" class="modal modal-fixed-footer small-modal">
+                        <div class="modal-content">
+                            <div class="row">
+                                <form class="col s12">
+                                    <div class="row center upload-profile-pic">
+                                        <div class="actions">
+                                            <div class="btn file-btn">
+                                                <span>上傳</span>
+                                                <input type="file" id="upload" value="Choose a file" accept="image/*">
+                                            </div>
+                                        </div>
+                                        <div class="upload-msg">
+                                            更新大頭貼照...
+                                        </div>
+                                        <div class="upload-profile-pic-wrap">
+                                            <div id="upload-profile-pic"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="upload-result modal-action modal-close waves-effect waves-green btn-flat">確定</a>
                         </div>
                     </div>
                 </div>
                 <div class="col s12 m4 offset-m1">
-                    <div class="card-panel">
-                        <h5>基本資料</h5>
-                        <div>
-                            <p>性別
-                                <br>女</p>
-                            <p>生日
-                                <br> 1995.2.29
-                            </p>
-                            <p>地點
-                                <br>台北市</p>
-                            <p>E-mail
-                                <br>aaa@a.a.a</p>
+                    <div class="card">
+                        <div class="card-content">
+                            <h5 class="activator">基本資料<i class="material-icons right">edit</i></h5>
+                            <div>
+                                <p>
+                                    <label class="active">性別</label>
+                                    <br>女</p>
+                                <br>
+                                <p>
+                                    <label class="active">生日</label>
+                                    <br>1995.2.29</p>
+                                <br>
+                                <p>
+                                    <label class="active">地點</label>
+                                    <br>台北市</p>
+                                <br>
+                                <p>
+                                    <label class="active">E-mail</label>
+                                    <br>aaa@a.a.a</p>
+                            </div>
+                        </div>
+                        <div class="card-reveal">
+                            <h5 class="card-title">基本資料<i class="material-icons right">close</i></h5>
+                            <div class="card-edit">
+                                <div class="input-field">
+                                    <label class="active">性別</label>
+                                    <input name="gender" type="radio" id="male" />
+                                    <label for="male">男</label>
+                                    <input name="gender" type="radio" id="female" />
+                                    <label for="female">女</label>
+                                </div>
+                                <br>
+                                <div class="input-field">
+                                    <input id="birthday" type="text" class="validate">
+                                    <label for="birthday">生日</label>
+                                </div>
+                                <div class="input-field">
+                                    <input id="location" type="text" class="validate">
+                                    <label for="location">地點</label>
+                                </div>
+                                <div class="input-field">
+                                    <input id="email" type="email" class="validate">
+                                    <label for="email">Email</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-panel">
-                        <h5>自我介紹</h5>
-                        <div>
-                            <p>簡介
-                                <br>...</p>
-                            <p>興趣
-                                <div class="chip">興趣1</div>
-                                <div class="chip">興趣2</div>
-                                <div class="chip">興趣3</div>
-                            </p>
+                    <div class="card" id="card-introduction">
+                        <div class="card-content">
+                            <h5 class="activator">自我介紹<i class="material-icons right">edit</i></h5>
+                            <div>
+                                <p>
+                                    <label class="active">簡介</label>
+                                    <br>...</p>
+                                <br>
+                                <p>
+                                    <label class="active">興趣</label>
+                                    <br>
+                                    <div class="chip">興趣1</div>
+                                    <div class="chip">興趣2</div>
+                                    <div class="chip">興趣3</div>
+                                </p>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="card-reveal">
+                            <h5 class="card-title">自我介紹<i class="material-icons right">close</i></h5>
+                            <div class="card-edit">
+                                <div class="input-field">
+                                    <textarea id="introduction" class="materialize-textarea"></textarea>
+                                    <label for="introduction">簡介</label>
+                                </div>
+                                <div class="input-field">
+                                    <select multiple class="edit-interests">
+                                        <option value="" disabled selected>選擇你的興趣</option>
+                                        <option value="1">資訊科技</option>
+                                        <option value="2">工程建築</option>
+                                        <option value="3">數理化學</option>
+                                        <option value="4">醫藥衛生</option>
+                                        <option value="5">自然科學</option>
+                                        <option value="6">藝術設計</option>
+                                        <option value="7">人文社會</option>
+                                        <option value="8">財經管理</option>
+                                        <option value="9">語言學習</option>
+                                        <option value="10">運動遊憩</option>
+                                        <option value="11">資格檢定</option>
+                                        <option value="12">升學考試</option>
+                                        <option value="13">其他</option>
+                                    </select>
+                                    <label>興趣</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -149,7 +270,12 @@
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js "></script>
     <script src="../static/js/materialize.js "></script>
+    <script src="../static/js/moment.min.js"></script>
+    <script src="../static/js/draggabilly.pkgd.min.js"></script>
+    <script src="../static/js/mdDateTimePicker.js"></script>
     <script src="../static/js/init.js "></script>
+    <script src="../static/js/croppie.js "></script>
+    <script src="../static/js/profile.js "></script>
 </body>
 
 </html>

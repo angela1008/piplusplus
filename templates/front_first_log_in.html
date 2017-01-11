@@ -56,6 +56,56 @@
                 </div>
             </div>
             <div class="col s12 m10 right-side">
+                <div id="modal_complete_profile" class="modal modal-fixed-footer">
+                    <div class="modal-content">
+                        <div class="row">
+                            <form class="col s8 offset-s2">
+                                <h5 class="light">建立個人資料</h5>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="name" type="text" class="validate">
+                                        <label for="name">姓名</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <input name="gender" type="radio" id="male" />
+                                        <label for="male">男</label>
+                                        <input name="gender" type="radio" id="female" />
+                                        <label for="female">女</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="birthday" type="text" class="validate">
+                                        <label for="birthday">生日</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="introduction" class="materialize-textarea"></textarea>
+                                        <label for="introduction">簡介</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select>
+                                            <option value="" disabled selected>Choose your option</option>
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                        </select>
+                                        <label>興趣</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">跳過</a>
+                        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">確定</a>
+                    </div>
+                </div>
                 <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
                     <a class="btn-floating btn-large teal accent-2" href="#modal_add_group">
                         <i class="material-icons">add</i>
