@@ -12,6 +12,48 @@
 </head>
 
 <body>
+    
+    <script>
+    function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      testAPI();
+      
+       document.getElementById("email").innerHTML=response.mail;
+      
+        //  window.location.assign("https://piplusplus-u10216026.c9users.io/front");
+      
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = ' ';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = ' ';
+    }
+    }
+    
+    function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+    }
+    
+    
+    function logout(){
+    FB.logout(function(response) {
+   // Person is now logged out
+});
+    
+    }      
+    
+    </script>
     <nav class="deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
             <a href="index.html" class="nav-logo"></a>
@@ -28,12 +70,13 @@
             <div class="row">
                 <div class="col s8 offset-s2">
                     <div class="card">
+                        <form method="post" action="">
                         <div class="center">
                             <div class="logo-container">
                                 <object id="logo" class="responsive-img" width="130px" type="image/svg+xml" data="../static/images/logo.svg">Your browser does not support SVG.</object>
                             </div>
                         </div>
-                        <form method="post" action="">
+
                         {% load widget_tweaks %}
                         
                             <div class="row">
@@ -44,6 +87,7 @@
                                 </div>
                                 <div class="input-field col s8 offset-s2">
                                     {{ form.email|add_class:"validate" }}
+                                    <!--<input type="text" id="mail" >-->
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-field col s8 offset-s2">
@@ -57,20 +101,20 @@
                                     <label for="password">Password Confirm</label>
                                 </div>
                             </div>
-                            <center><input type="submit" value="註冊"></center>
-                        </form>
                         <h2 class="strikeThrough"><span>或</span></h2>
+                        <div class="card-action center">
                         <div class="row">
-                            <a class="waves-effect waves-light btn indigo lighten-1 col s8 offset-s2">以 facebook 註冊</a>
+                            <!--<a class="waves-effect waves-light btn indigo lighten-1 col s8 offset-s2">以 facebook 註冊</a>-->
+                             <fb:login-button scope="public_profile,email"  data-size="large" ata-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();">以facebook註冊                 </fb:login-button>
+                         <div id="status">
+                            </div>
+                        </div>
                         </div>
                         <div class="divider"></div>
-                        <div class="card-action center">
-                            
-                                
-                          <!--<a href="/login/">註冊</a>-->
-                              
-
+                        <div class="card-action center">                
+                          <input type="submit" value="註冊">
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -79,6 +123,7 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js "></script>
     <script src="../static/js/materialize.js "></script>
     <script src="../static/js/init.js "></script>
+    <script src="../static/js/fbjdk.js"></script>
 </body>
 
 </html>

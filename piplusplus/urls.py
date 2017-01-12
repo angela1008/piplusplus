@@ -26,14 +26,27 @@ admin.autodiscover()
 ## Nest-structure
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', views.index),
+    
     url(r'^login/$', apiViews.login),
     url(r'^logout/$', apiViews.logout),
     url(r'^signup/$', apiViews.signup),
-    url(r'^index/$', views.index),
-    url(r'^front/$', views.front),
-    url(r'^profile/$', views.profile, name='user_profile'),
-    url(r'^group/$', views.group),
     
-    #
-    url(r'^group2/$', views.group2),
+    url(r'^front/$', apiViews.front, name='own_front'),
+    url(r'^computerfront/$', apiViews.computer_front, name='own_computer_front'),
+    url(r'^buildfront/$', apiViews.build_front, name='own_build_front'),
+    url(r'^mathfront/$', apiViews.math_front, name='own_math_front'),
+    url(r'^healingfront/$', apiViews.healing_front, name='own_healing_front'),
+    url(r'^naturefront/$', apiViews.nature_front, name='own_nature_front'),
+    url(r'^artfront/$', apiViews.art_front, name='own_art_front'),
+    url(r'^societyfront/$', apiViews.society_front, name='own_society_front'),
+    url(r'^managefront/$', apiViews.manage_front, name='own_manage_front'),
+    url(r'^languagefront/$', apiViews.language_front, name='own_language_front'),
+    url(r'^sportfront/$', apiViews.sport_front, name='own_sport_front'),
+    url(r'^qulificationfront/$', apiViews.qulification_front, name='own_qulification_front'),
+    url(r'^testfront/$', apiViews.test_front, name='own_test_front'),
+    url(r'^otherfront/$', apiViews.other_front, name='own_other_front'),
+    
+    url(r'^profile/(?P<user>\w+)$', apiViews.profile, name='own_profile'),
+    url(r'^group/$', apiViews.group, name='own_group'),
 )

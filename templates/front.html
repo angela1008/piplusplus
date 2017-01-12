@@ -4,7 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-    <title>Home1</title>
+    <link rel="shortcut icon" type="image/png" href="../static/images/favicon.ico">
+    <title>piplusplus</title>
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -12,15 +13,18 @@
 </head>
 
 <body>
+    <ul id="nav-dropdown" class="dropdown-content">
+        <li><a href="/logout/" class="center">登出</a></li>
+    </ul>
      <nav class="nav-extended deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
-            <a href="/index/" class="nav-logo"></a>
+            <a href="{% url 'own_front'%}?id={{request.user.id}}" class="nav-logo"></a>
             <ul class="right hide-on-med-and-down">
                 {% if request.user.is_authenticated %}
-                <li>{{request.user}} 您已經登入囉~<a href="/logout/" class="waves-effect waves-light btn deep-orange lighten-3">登出</a></li>
+                <li>{{request.user}} 您已經登入囉~</li>
                 <li><a href="#"><i class="material-icons">notifications</i></a></li>
-                <li><a href="{% url 'user_profile'%}?id={{request.user.id}}"><i class="material-icons">person</i></a></li>
-                <li><a href="#"><i class="material-icons">more_vert</i></a></li>
+                <li><a href="{% url 'own_profile' user=request.user %}"><i class="material-icons">person</i></a></li>
+                <li><a class="dropdown-button" data-activates="nav-dropdown" data-alignment='right'><i class="material-icons right">more_vert</i></a></li>
                 {% else %}
                 <li> 您尚未登入喔~<a href="/login/" class="waves-effect waves-light btn deep-orange lighten-3">登入</a></li>
                 {% endif %}
@@ -44,20 +48,20 @@
                 <div class="catagory-list pin-top" style="top: 0px;">
                     <div style="height: 1px;">
                         <ul class="section table-of-contents">
-                            <li><a href="" class="active"><i class="material-icons tiny">face</i>全部</a></li>
-                            <li><a href=""><i class="material-icons tiny">computer</i>資訊科技</a></li>
-                            <li><a href=""><i class="material-icons tiny">build</i>工程建築</a></li>
-                            <li><a href=""><i class="material-icons tiny">functions</i>數理化學</a></li>
-                            <li><a href=""><i class="material-icons tiny">healing</i>醫藥衛生</a></li>
-                            <li><a href=""><i class="material-icons tiny">local_florist</i>自然科學</a></li>
-                            <li><a href=""><i class="material-icons tiny">palette</i>藝術設計</a></li>
-                            <li><a href=""><i class="material-icons tiny">local_library</i>人文社會</a></li>
-                            <li><a href=""><i class="material-icons tiny">attach_money</i>財經管理</a></li>
-                            <li><a href=""><i class="material-icons tiny">translate</i>語言學習</a></li>
-                            <li><a href=""><i class="material-icons tiny">fitness_center</i>運動遊憩</a></li>
-                            <li><a href=""><i class="material-icons tiny">assignment</i>資格檢定</a></li>
-                            <li><a href=""><i class="material-icons tiny">school</i>升學考試</a></li>
-                            <li><a href=""><i class="material-icons tiny">extension</i>其他</a></li>
+                            <li><a href="{% url 'own_front'%}?id={{request.user.id}}"><i class="material-icons tiny">face</i>全部</a></li>
+                            <li><a href="{% url 'own_computer_front' %}?id={{request.user.id}}"><i class="material-icons tiny">computer</i>資訊科技</a></li>
+                            <li><a href="{% url 'own_build_front' %}?id={{request.user.id}}"><i class="material-icons tiny">build</i>工程建築</a></li>
+                            <li><a href="{% url 'own_math_front' %}?id={{request.user.id}}"><i class="material-icons tiny">functions</i>數理化學</a></li>
+                            <li><a href="{% url 'own_healing_front' %}?id={{request.user.id}}"><i class="material-icons tiny">healing</i>醫藥衛生</a></li>
+                            <li><a href="{% url 'own_nature_front' %}?id={{request.user.id}}"><i class="material-icons tiny">local_florist</i>自然科學</a></li>
+                            <li><a href="{% url 'own_art_front' %}?id={{request.user.id}}"><i class="material-icons tiny">palette</i>藝術設計</a></li>
+                            <li><a href="{% url 'own_society_front' %}?id={{request.user.id}}"><i class="material-icons tiny">local_library</i>人文社會</a></li>
+                            <li><a href="{% url 'own_manage_front' %}?id={{request.user.id}}"><i class="material-icons tiny">attach_money</i>財經管理</a></li>
+                            <li><a href="{% url 'own_language_front' %}?id={{request.user.id}}"><i class="material-icons tiny">translate</i>語言學習</a></li>
+                            <li><a href="{% url 'own_sport_front' %}?id={{request.user.id}}"><i class="material-icons tiny">fitness_center</i>運動遊憩</a></li>
+                            <li><a href="{% url 'own_qulification_front' %}?id={{request.user.id}}"><i class="material-icons tiny">assignment</i>資格檢定</a></li>
+                            <li><a href="{% url 'own_test_front' %}?id={{request.user.id}}"><i class="material-icons tiny">school</i>升學考試</a></li>
+                            <li><a href="{% url 'own_other_front' %}?id={{request.user.id}}"><i class="material-icons tiny">extension</i>其他</a></li>
                         </ul>
                     </div>
                 </div>
@@ -70,409 +74,154 @@
                     </a>
                 </div>
                 <div id="modal_add_group" class="modal modal-fixed-footer small-modal">
-                    <div class="modal-content">
-                        <div class="row">
-                            <form class="col s12">
-                                <h5 class="light">建立π</h5>
+                    <form class="col s12" action="" method="post">
+                        <div class="modal-content">
+                            <div class="row">
+                                <h5 class="light">建立社團</h5>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="name" type="text" class="validate">
-                                        <label for="name">Name</label>
+                                        <input type="text" name="name" class="validate">
+                                        <label for="name">名稱</label>
+                                        {% if name_error %}
+                                        <p>* 名稱輸入不完整，請重新輸入</p>
+                                        {% endif %}
+                                        {% if error %}
+                                        <p>* 名稱已經存在，請重新輸入</p>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <select class="icons" multiple>
-                                            <option value="" disabled selected>Choose your option</option>
-                                            <option value="" data-icon="images/sample-1.jpg" class="left circle">example 1</option>
-                                            <option value="" data-icon="images/office.jpg" class="left circle">example 2</option>
-                                            <option value="" data-icon="images/yuna.jpg" class="left circle">example 3</option>
+                                        <!--only one classification-->
+                                        <select name="classification" class="icons">
+                                            <option value="" disabled selected>選擇您的選項</option>
+                                            {% for classification in classifications %}
+                                            <option value="{{classification.id}}" data-icon="../static/images/logo_small.svg" class="left circle">{{classification.name}}</option>
+                                            {% endfor %}
                                         </select>
+                                        {% if classification_error %}
+                                        <p>* 分類輸入不完整，請重新輸入</p>
+                                        {% endif %}
                                         <label>分類</label>
                                     </div>
                                 </div>
+                                <!--<div class="row">-->
+                                <!--    <div class="input-field col s12">-->
+                                <!--        <select>-->
+                                <!--            <option value="" disabled selected>選擇您的選項</option>-->
+                                <!--            <option value="1">Option 1</option>-->
+                                <!--            <option value="2">Option 2</option>-->
+                                <!--            <option value="3">Option 3</option>-->
+                                <!--        </select>-->
+                                <!--        <label>權限</label>-->
+                                <!--    </div>-->
+                                <!--</div>-->
                                 <div class="row">
-                                    <div class="input-field col s12">
-                                        <select>
-                                            <option value="" disabled selected>Choose your option</option>
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="3">Option 3</option>
-                                        </select>
-                                        <label>權限</label>
+                                    <div class="inpit-field">
+                                        <!--leader field will pass directly,does not require the user to complete.-->
+                                        <input type="hidden" name="leader_id" value="{{request.user.id}}">
                                     </div>
                                 </div>
-                            </form>
+                                <div class=" modal-action modal-close waves-effect waves-green btn-flat">
+                                    <input type="submit" name="add_group" value="新增">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">新增</a>
-                    </div>
+                    </form>
                 </div>
                 {% endif %}
                 <div id="all" class="col s12">
                     <div class="container">
                         <div class="section">
+                            {% if is_join %}
+                            <p>* 您已經加入該社團囉!</p>
+                            {% endif %}
                             <h5 class="light">熱門</h5>
                             <div class="row">
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        {% if request.user.is_authenticated %}
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
+                                {% if hot_groups.exists %}
+                                    {% for hot_group in hot_groups %}
+                                    <div class="col s6 m3">
+                                        <div class="card group-card">
+                                            <div class="card-image">
+                                                <img src="/{{ hot_group.group_pic.url }}">
+                                            </div>
+                                            <div class="card-content">
+                                                <span class="card-title"><a href="/group?id={{hot_group.id}}">{{hot_group.name}}</a></span>
+                                                <p>{{hot_group.join_number}}位成員</p>
+                                            </div>
+                                            {% if request.user.is_authenticated %}
+                                            <form action="" method="post">
+                                                <input type="hidden" name="member_id" value="{{request.user.id}}">
+                                                <input type="hidden" name="group_id" value="{{hot_group.id}}">
+                                                <div class="card-action">
+                                                    <input type="submit" name="join_group" value="加入">
+                                                </div>
+                                            </form>
+                                            {% endif %}
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>{{classification.name}}還沒有熱門社團喔!</p>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="section">
                             <h5 class="light">最新</h5>
                             <div class="row">
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
+                                {% if latest_groups.exists %}
+                                    {% for latest_group in latest_groups %}
+                                    <div class="col s6 m3">
+                                        <div class="card group-card">
+                                            <div class="card-image">
+                                                <img src="/{{ latest_group.group_pic.url }}">
+                                            </div>
+                                            <div class="card-content">
+                                                <span class="card-title"><a href="{% url 'own_group' %}?id={{latest_group.id}}">{{latest_group.name}}</a></span>
+                                                <p>{{latest_group.join_number}}位成員</p>
+                                            </div>
+                                            {% if request.user.is_authenticated %}
+                                            <form action="" method="post">
+                                                <input type="hidden" name="member_id" value="{{request.user.id}}">
+                                                <input type="hidden" name="group_id" value="{{latest_group.id}}">
+                                                <div class="card-action">
+                                                    <input type="submit" name="join_group" value="加入">
+                                                </div>
+                                            </form>
+                                            {% endif %}
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>{{classification.name}}還沒有新社團喔!</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
+                {% if request.user.is_authenticated %}
                 <div id="member" class="col s12">
                     <div class="container">
                         <div class="section">
                             <h5 class="light">全部</h5>
                             <div class="row">
+                            {% if join_groups.exists %}
+                                {% for join_group in join_groups %}
                                 <div class="col s6 m3">
                                     <div class="card group-card">
                                         <div class="card-image">
-                                            <img src="../static/images/img1.png">
+                                            <img src="/{{ join_group.group.group_pic.url }}">
                                         </div>
                                         <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
+                                            <span class="card-title"><a href="{% url 'own_group' %}?id={{join_group.group.id}}">{{join_group.group.name}}</a></span>
+                                            <p>{{join_group.group.join_number}}位成員</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <p>你還沒有加入{{classification.name}}的社團喔!</p>
+                            {% endif %}
                             </div>
                         </div>
                     </div>
@@ -482,124 +231,28 @@
                         <div class="section">
                             <h5 class="light">全部</h5>
                             <div class="row">
+                            {% if leader_groups.exists %}
+                                {% for leader_group in leader_groups %}
                                 <div class="col s6 m3">
                                     <div class="card group-card">
                                         <div class="card-image">
-                                            <img src="../static/images/img1.png">
+                                            <img src="/{{ leader_group.group_pic.url }}">
                                         </div>
                                         <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
+                                            <span class="card-title"><a href="{% url 'own_group' %}?id={{leader_group.id}}">{{leader_group.name}}</a></span>
+                                            <p>{{leader_group.join_number}}位成員</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s6 m3">
-                                    <div class="card group-card">
-                                        <div class="card-image">
-                                            <img src="../static/images/img1.png">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title"><a href="group_log_in.html">Card Title</a></span>
-                                            <p>87位成員</p>
-                                        </div>
-                                        <div class="card-action">
-                                            <a href="#">加入</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <p>你還沒有創立{{classification.name}}的社團喔!</p>
+                            {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </main>

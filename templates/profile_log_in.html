@@ -15,11 +15,11 @@
     {% if request.user.is_authenticated %}
     <nav class="deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
-            <a href="index.html" class="nav-logo"></a>
+            <a href="{% url 'own_all_front' %}?id={{request.user.id}}" class="nav-logo"></a>
             <ul class="right hide-on-med-and-down">
                 <li>{{request.user}} 您已經登入囉~<a href="/logout/" class="waves-effect waves-light btn deep-orange lighten-3">登出</a></li>
                 <li><a href="#"><i class="material-icons">notifications</i></a></li>
-                <li><a href="profile_owner.html"><i class="material-icons">person</i></a></li>
+                <li><a href="{%url 'own_profile'%}?id={{request.user.id}}"><i class="material-icons">person</i></a></li>
                 <li><a href="#"><i class="material-icons">more_vert</i></a></li>
             </ul>
             <ul id="nav-mobile" class="side-nav">
@@ -35,13 +35,13 @@
                         <div id="index-banner" class="parallax-container">
                             <div class="section no-pad-bot">
                                 <div class="container">
-                                    <h3 class="header center teal-text text-lighten-2">Name</h3>
+                                    <h3 class="header center teal-text text-lighten-2">{{user}}</h3>
                                     <div class="row center">
-                                        <h5 class="header col s12 light">A modern responsive </h5>
+                                        <h5 class="header col s12 light">{{userextension.self_introduction}}</h5>
                                     </div>
                                 </div>
                             </div>
-                            <div class="parallax"><img src="background1.jpg" alt="Unsplashed background img 1"></div>
+                            <div class="parallax"><img src="../static/images/background1.jpg" alt="Unsplashed background img 1"></div>
                         </div>
                         <div class="profile-container">
                             <div class="row center">
@@ -71,10 +71,13 @@
                             <p>簡介
                                 <br>{{userextension.self_introduction}}</p>
                             <p>興趣
-                                <div class="chip">{{userextension.interest}}</div>
-                                <div class="chip">興趣2</div>
-                                <div class="chip">興趣3</div>
-                            </p>
+                            {% if userinterests.exists %}
+                                {% for userinterest in userinterests %}
+                                <div class="chip">{{userinterest.name}}</div></p>
+                                {% endfor %}
+                            {% else %}
+                                <div class="chip">{{userinterest.name}}</div></p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -82,66 +85,64 @@
                     <div class="card-panel">
                         <h5>社團</h5>
                         <ul class="tabs">
-                            <li class="tab col s3"><a class="active" href="#test1">全部</a></li>
-                            <li class="tab col s3"><a href="#test2">加入的</a></li>
-                            <li class="tab col s3"><a href="#test3">擁有的</a></li>
+                            <li class="tab col s3"><a class="active" href="#all">全部</a></li>
+                            <li class="tab col s3"><a href="#member">加入的</a></li>
+                            <li class="tab col s3"><a href="#your">擁有的</a></li>
                         </ul>
                         <div class="row">
-                            <div class="col s6">
+                            <!--all-->
+                            <div id="all" class="col s6">
+                            {% if memberships.exists %}
+                                {% for membership in memberships %}
                                 <div class="card group-card">
                                     <div class="card-image">
                                         <img src="../static/images/img1.png">
                                     </div>
                                     <div class="card-content">
-                                        <span class="card-title">Card Title</span>
-                                        <p>87位成員</p>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="#">加入</a>
+                                        <span class="card-title"><a href="{% url 'own_group'%}?id={{membership.group.id}}">{{membership.group.name}}</a></span>
+                                        <p>{{membership.group.join_number}}位成員</p>
                                     </div>
                                 </div>
+                                {% endfor %}
+                            {% else %}
+                                <p>你還沒有創立/加入任何社團喔!</p>
+                            {% endif %}
                             </div>
-                            <div class="col s6">
+                            <!--join-->
+                            <div id="member" class="col s6">
+                            {% if join_groups.exists %}
+                                {% for join_group in join_groups %}
                                 <div class="card group-card">
                                     <div class="card-image">
                                         <img src="../static/images/img1.png">
                                     </div>
                                     <div class="card-content">
-                                        <span class="card-title">Card Title</span>
-                                        <p>87位成員</p>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="#">加入</a>
+                                        <span class="card-title"><a href="{% url 'own_group'%}?id={{join_group.group.id}}">{{join_group.group.name}}</a></span>
+                                        <p>{{join_group.group.join_number}}位成員</p>
                                     </div>
                                 </div>
+                                {% endfor %}
+                            {% else %}
+                                <p>你還沒有加入任何社團喔!</p>
+                            {% endif %}
                             </div>
-                            <div class="col s6">
+                            <!--leader-->
+                            <div id="your" class="col s6">
+                            {% if leader_groups.exists %}
+                                {% for leader_group in leader_groups %}
                                 <div class="card group-card">
                                     <div class="card-image">
                                         <img src="../static/images/img1.png">
                                     </div>
                                     <div class="card-content">
-                                        <span class="card-title">Card Title</span>
-                                        <p>87位成員</p>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="#">加入</a>
+                                        <span class="card-title"><a href="{% url 'own_group'%}?id={{leader_group.id}}">{{leader_group.name}}</a></span>
+                                        <p>{{leader_group.join_number}}位成員</p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col s6">
-                                <div class="card group-card">
-                                    <div class="card-image">
-                                        <img src="../static/images/img1.png">
-                                    </div>
-                                    <div class="card-content">
-                                        <span class="card-title">Card Title</span>
-                                        <p>87位成員</p>
-                                    </div>
-                                    <div class="card-action">
-                                        <a href="#">加入</a>
-                                    </div>
-                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <p>你還沒有創立任何社團喔!</p>
+                            {% endif %}
                             </div>
                         </div>
                     </div>

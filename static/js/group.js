@@ -1,5 +1,7 @@
 var dialogStartDate = new mdDateTimePicker.default({
-    type: 'date'
+    type: 'date',
+    past: moment().subtract(0, 'years'),
+    future: moment().add(21, 'years')
 });
 var toggleButtonStartDate = document.getElementById('event-start-date');
 toggleButtonStartDate.addEventListener('focus', function() {
@@ -25,7 +27,9 @@ document.getElementById('event-start-time').addEventListener('onOk', function() 
 });
 
 var dialogEndDate = new mdDateTimePicker.default({
-    type: 'date'
+    type: 'date',
+    past: moment().subtract(0, 'years'),
+    future: moment().add(21, 'years')
 });
 var toggleButtonEndDate = document.getElementById('event-end-date');
 toggleButtonEndDate.addEventListener('focus', function() {
@@ -51,7 +55,9 @@ document.getElementById('event-end-time').addEventListener('onOk', function() {
 });
 
 var dialogDeadlineDate = new mdDateTimePicker.default({
-    type: 'date'
+    type: 'date',
+    past: moment().subtract(0, 'years'),
+    future: moment().add(21, 'years')
 });
 var toggleButtonDeadlineDate = document.getElementById('task-end-date');
 toggleButtonDeadlineDate.addEventListener('focus', function() {
@@ -75,6 +81,66 @@ document.getElementById('task-end-time').addEventListener('onOk', function() {
     this.value = dialogDeadlineTime.time.format('LT').toString();
     Materialize.updateTextFields();
 });
+
+var UploadGroupPic = (function() {
+    function groupPicUpload() {
+        var $uploadCrop;
+
+        function readFile(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.upload-group-pic').addClass('ready');
+                    $('.upload-result').addClass('ready');
+                    console.log('ready');
+                    $uploadCrop.croppie('bind', {
+                        url: e.target.result
+                    }).then(function() {
+                        console.log('jQuery bind complete');
+                    });
+
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                swal("Sorry - you're browser doesn't support the FileReader API");
+            }
+        }
+
+        $uploadCrop = $('#upload-group-pic').croppie({
+            viewport: {
+                width: 300,
+                height: 220,
+            },
+        });
+
+        $('#upload').on('change', function() {
+            readFile(this);
+        });
+        $('.upload-result').on('click', function(ev) {
+            $uploadCrop.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+            }).then(function(resp) {
+                $('.group-pic').attr('src', resp);
+                $('#new-group-image').attr('value', resp);
+                //$.post('',{ "image":resp , "update_group_pic": "true" });
+                $( "#update_pic" ).submit();
+            });
+            
+        });
+    }
+
+    function init() {
+        groupPicUpload();
+    }
+
+    return {
+        init: init
+    };
+})();
+UploadGroupPic.init();
 
 function initialize() {
     var input = document.getElementById('event-location');
