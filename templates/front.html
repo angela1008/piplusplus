@@ -4,7 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-    <title>Home1</title>
+    <link rel="shortcut icon" type="image/png" href="../static/images/favicon.ico">
+    <title>piplusplus</title>
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -12,15 +13,18 @@
 </head>
 
 <body>
+    <ul id="nav-dropdown" class="dropdown-content">
+        <li><a href="/logout/" class="center">登出</a></li>
+    </ul>
      <nav class="nav-extended deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
-            <a href="{% url 'own_front' %}?id={{request.user.id}}" class="nav-logo"></a>
+            <a href="{% url 'own_front'%}?id={{request.user.id}}" class="nav-logo"></a>
             <ul class="right hide-on-med-and-down">
                 {% if request.user.is_authenticated %}
-                <li>{{request.user}} 您已經登入囉~<a href="/logout/" class="waves-effect waves-light btn deep-orange lighten-3">登出</a></li>
+                <li>{{request.user}} 您已經登入囉~</li>
                 <li><a href="#"><i class="material-icons">notifications</i></a></li>
-                <li><a href="{% url 'own_profile' %}?id={{request.user.id}}"><i class="material-icons">person</i></a></li>
-                <li><a href="#"><i class="material-icons">more_vert</i></a></li>
+                <li><a href="{% url 'own_profile' user=request.user %}"><i class="material-icons">person</i></a></li>
+                <li><a class="dropdown-button" data-activates="nav-dropdown" data-alignment='right'><i class="material-icons right">more_vert</i></a></li>
                 {% else %}
                 <li> 您尚未登入喔~<a href="/login/" class="waves-effect waves-light btn deep-orange lighten-3">登入</a></li>
                 {% endif %}
@@ -44,7 +48,7 @@
                 <div class="catagory-list pin-top" style="top: 0px;">
                     <div style="height: 1px;">
                         <ul class="section table-of-contents">
-                            <li><a href="{% url 'own_front' %}?id={{request.user.id}}" class="active"><i class="material-icons tiny">face</i>全部</a></li>
+                            <li><a href="{% url 'own_front'%}?id={{request.user.id}}"><i class="material-icons tiny">face</i>全部</a></li>
                             <li><a href="{% url 'own_computer_front' %}?id={{request.user.id}}"><i class="material-icons tiny">computer</i>資訊科技</a></li>
                             <li><a href="{% url 'own_build_front' %}?id={{request.user.id}}"><i class="material-icons tiny">build</i>工程建築</a></li>
                             <li><a href="{% url 'own_math_front' %}?id={{request.user.id}}"><i class="material-icons tiny">functions</i>數理化學</a></li>
@@ -58,7 +62,6 @@
                             <li><a href="{% url 'own_qulification_front' %}?id={{request.user.id}}"><i class="material-icons tiny">assignment</i>資格檢定</a></li>
                             <li><a href="{% url 'own_test_front' %}?id={{request.user.id}}"><i class="material-icons tiny">school</i>升學考試</a></li>
                             <li><a href="{% url 'own_other_front' %}?id={{request.user.id}}"><i class="material-icons tiny">extension</i>其他</a></li>
-                            
                         </ul>
                     </div>
                 </div>
@@ -74,7 +77,7 @@
                     <form class="col s12" action="" method="post">
                         <div class="modal-content">
                             <div class="row">
-                                <h5 class="light">建立π</h5>
+                                <h5 class="light">建立社團</h5>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input type="text" name="name" class="validate">
@@ -93,7 +96,7 @@
                                         <select name="classification" class="icons">
                                             <option value="" disabled selected>選擇您的選項</option>
                                             {% for classification in classifications %}
-                                            <option value="{{classification.id}}" data-icon="../static/images/img1.png" class="left circle">{{classification.name}}</option>
+                                            <option value="{{classification.id}}" data-icon="../static/images/logo_small.svg" class="left circle">{{classification.name}}</option>
                                             {% endfor %}
                                         </select>
                                         {% if classification_error %}
@@ -140,7 +143,7 @@
                                     <div class="col s6 m3">
                                         <div class="card group-card">
                                             <div class="card-image">
-                                                <img src="../static/images/img1.png">
+                                                <img src="/{{ hot_group.group_pic.url }}">
                                             </div>
                                             <div class="card-content">
                                                 <span class="card-title"><a href="/group?id={{hot_group.id}}">{{hot_group.name}}</a></span>
@@ -159,7 +162,7 @@
                                     </div>
                                     {% endfor %}
                                 {% else %}
-                                    <p>{{classification.name}}類還沒有熱門社團喔!</p>
+                                    <p>{{classification.name}}還沒有熱門社團喔!</p>
                                 {% endif %}
                             </div>
                         </div>
@@ -171,7 +174,7 @@
                                     <div class="col s6 m3">
                                         <div class="card group-card">
                                             <div class="card-image">
-                                                <img src="../static/images/img1.png">
+                                                <img src="/{{ latest_group.group_pic.url }}">
                                             </div>
                                             <div class="card-content">
                                                 <span class="card-title"><a href="{% url 'own_group' %}?id={{latest_group.id}}">{{latest_group.name}}</a></span>
@@ -207,7 +210,7 @@
                                 <div class="col s6 m3">
                                     <div class="card group-card">
                                         <div class="card-image">
-                                            <img src="../static/images/img1.png">
+                                            <img src="/{{ join_group.group.group_pic.url }}">
                                         </div>
                                         <div class="card-content">
                                             <span class="card-title"><a href="{% url 'own_group' %}?id={{join_group.group.id}}">{{join_group.group.name}}</a></span>
@@ -233,7 +236,7 @@
                                 <div class="col s6 m3">
                                     <div class="card group-card">
                                         <div class="card-image">
-                                            <img src="../static/images/img1.png">
+                                            <img src="/{{ leader_group.group_pic.url }}">
                                         </div>
                                         <div class="card-content">
                                             <span class="card-title"><a href="{% url 'own_group' %}?id={{leader_group.id}}">{{leader_group.name}}</a></span>
@@ -243,7 +246,7 @@
                                 </div>
                                 {% endfor %}
                             {% else %}
-                                <p>你還沒有創立{{classification.name}}類的社團喔!</p>
+                                <p>你還沒有創立{{classification.name}}的社團喔!</p>
                             {% endif %}
                             </div>
                         </div>

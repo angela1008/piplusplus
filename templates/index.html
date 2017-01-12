@@ -4,7 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-    <title>Sign Up</title>
+    <link rel="shortcut icon" type="image/png" href="../static/images/favicon.ico">
+    <title>piplusplus</title>
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -14,7 +15,7 @@
 <body>
     <nav class="deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
-            <a href="/index/" class="nav-logo"></a>
+            <a href="http://piplusplus-u10216026.c9users.io/" class="nav-logo"></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="/login/" class="waves-effect waves-light btn deep-orange lighten-3">登入</a></li>
             </ul>
@@ -30,10 +31,14 @@
                     <div class="logo-container">
                         <object id="logo" class="responsive-img" width="400px" type="image/svg+xml" data="../static/images/logo.svg">Your browser does not support SVG.</object>
                     </div>
-                    <h4>π++ - 簡介簡介簡介</h4>
+                    <h4>PI++</h4>
                     <br>
                     <br>
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'own_front'%}?id={{request.user.id}}" class="waves-effect waves-light btn-large teal accent-2">探索更多</a>
+                    {% else %}
                     <a href="/front/" class="waves-effect waves-light btn-large teal accent-2">探索更多</a>
+                    {% endif %}
                 </div>
             </div>
     </main>
