@@ -4,6 +4,11 @@
         $('.button-collapse').sideNav();
         $('.parallax').parallax();
 
+        $('body').css("height", $(document).height());
+        $('main').css("height", $(document).height());
+        $('main>.row').css("height", $(document).height());
+        $('.right-side').css("height", $(document).height());
+
     }); // end of document ready
 })(jQuery); // end of jQuery name space
 

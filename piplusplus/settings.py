@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'api',
     'app',
+    'django_extensions',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -92,6 +93,7 @@ DATABASES = {
     }
 }
 
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

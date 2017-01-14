@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
     <title>登入</title>
@@ -9,12 +9,53 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="../static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-</head>
-
-<body>
+    </head>
+    
+    <body>
+    
+    <script>
+    function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      testAPI();
+      
+        //  window.location.assign("https://piplusplus-u10216026.c9users.io/front");
+      
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = ' ';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = ' ';
+    }
+    }
+    
+    function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+    }
+    
+    
+    function logout(){
+    FB.logout(function(response) {
+   // Person is now logged out
+});
+    
+    }      
+    
+    </script>
+    
     <nav class="deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
-            <a href="index.html" class="nav-logo"></a>
+            <a href="/index/" class="nav-logo"></a>
             <ul class="right hide-on-med-and-down">
                 <li>還沒有帳號?<a href="/signup/" class="waves-effect waves-light btn deep-orange lighten-3 inline-element">註冊</a></li>
             </ul>
@@ -43,13 +84,24 @@
                                 <label for="password">Password</label>
                             </div>
                         </div>
-                        <h2 class="strikeThrough"><span>或</span></h2>
-                        <div class="row">
-                            <a class="waves-effect waves-light btn indigo lighten-1 col s8 offset-s2">以 facebook 登入</a>
-                        </div>
+                        <!--<h2 class="strikeThrough"><span>或</span></h2>-->
+                        <!--<div class="row">-->
+                        <!--     <div class="card-action center">-->
+                            <!--<a id="my-button" class="waves-effect waves-light btn indigo lighten-1 col s8 offset-s2">以 facebook 登入</a>-->
+                            <!-- <div class="row">-->
+                            <!--<fb:login-button scope="public_profile,email" class="waves-effect waves-light btn indigo lighten-1 col s8 offset-s2" data-size="large" ata-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();">以 facebook 登入-->
+                            <!--</fb:login-button>-->
+                            <!--<div id="status">-->
+                            <!--</div>-->
+                            <!--</div>-->
+                        
+            
+                        <!--</div>-->
+                        <!--</div>-->
                         <div class="card-action center">
                             <!--Need type="submit" for receiving the login value-->
                             <input type="submit" value="登入">
+                            <input type="hidden" name="next" value="/{{ request.GET.next }}">
                         </div>
                     </div>
                 </form>
@@ -59,6 +111,8 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js "></script>
     <script src="../static/js/materialize.js "></script>
     <script src="../static/js/init.js "></script>
-</body>
-
-</html>
+    <script src="../static/js/fbjdk.js"></script>
+    
+    </body>
+    
+    </html>

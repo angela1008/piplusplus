@@ -502,4 +502,3 @@ def group(request):
                             task.is_finished=False
 
             return render(request, 'group.html',locals())
->>>>>>> feature/query_user_detail

@@ -12,6 +12,19 @@
 </head>
 
 <body>
+    
+    <script>
+document.getElementById('shareBtn').onclick = function() {
+  FB.ui({
+    method: 'share',
+    display: 'popup',
+    href: 'https://developers.facebook.com/docs/',
+  }, function(response){});
+}
+</script>
+    {% if request.user.is_authenticated %}
+    {% if user_in_group %}
+    
     <nav class="deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
             <a href="index.html" class="nav-logo"></a>
@@ -105,7 +118,479 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="parallax"><img src="background1.jpg" alt="Unsplashed background img 1"></div>
+                            <div class="parallax"><img src="../static/images/background1.jpg" alt="Unsplashed background img 1"></div>
+                        </div>
+                        <ul class="tabs">
+                            <li class="tab col s2"><a class="active" href="#discussion">討論</a></li>
+                            <li class="tab col s2"><a href="#event">活動</a></li>
+                            <li class="tab col s2"><a href="#to-do">進度</a></li>
+                            <li class="tab col s2"><a href="#note">筆記</a></li>
+                        </ul>
+                    </div>
+                    <div class="fixed-action-btn click-to-toggle
+                    ">
+                        <a class="btn-floating btn-large teal accent-2">
+                            <i class="large material-icons">add</i>
+                        </a>
+                        <ul>
+                            <li>
+                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="討論" href="#modal-discuss">
+                                    <i class="material-icons">forum</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="活動" href="#modal-event">
+                                    <i class="material-icons">event</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="進度" href="#modal-task">
+                                    <i class="material-icons">check_circle</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="btn-floating teal accent-3 tooltipped" data-position="left" data-delay="50" data-tooltip="筆記">
+                                    <i class="material-icons">note_add</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="modal-discuss" class="modal modal-fixed-footer small-modal">
+                        <div class="modal-content">
+                            <div class="post-input">
+                                <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                <span class="title">Name
+                                <i class="material-icons tiny">chevron_right</i>
+                                <a href="#">Group Name</a></span>
+                                <div class="input-field">
+                                    <textarea id="discusstext" class="materialize-textarea"></textarea>
+                                    <label for="discusstext">說點什麼……</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">送出</a>
+                        </div>
+                    </div>
+                    <div id="modal-event" class="modal modal-fixed-footer small-modal">
+                        <div class="modal-content">
+                            <div class="post-input">
+                                <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                <span class="title">Name
+                                <i class="material-icons tiny">chevron_right</i>
+                                <a href="#">Group Name</a></span>
+                                <div class="input-field">
+                                    <input id="event-name" type="text" class="validate">
+                                    <label for="event-name">活動名稱</label>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="event-start-date" type="text" class="validate">
+                                        <label for="event-start-date">開始日期</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="event-start-time" type="text" class="validate">
+                                        <label for="event-start-time">開始時間</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="event-end-date" type="text" class="validate">
+                                        <label for="event-end-date">結束日期</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="event-end-time" type="text" class="validate">
+                                        <label for="event-end-time">結束時間</label>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <input id="event-location" type="text" class="validate">
+                                    <label for="event-location">活動地點</label>
+                                </div>
+                                <div class="input-field">
+                                    <textarea id="eventtext" class="materialize-textarea"></textarea>
+                                    <label for="eventtext">說點什麼……</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">送出</a>
+                        </div>
+                    </div>
+                    <div id="modal-task" class="modal modal-fixed-footer small-modal">
+                        <div class="modal-content">
+                            <div class="post-input">
+                                <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                <span class="title">Name
+                                <i class="material-icons tiny">chevron_right</i>
+                                <a href="#">Group Name</a></span>
+                                <div class="input-field">
+                                    <input id="task-name" type="text" class="validate">
+                                    <label for="task-name">進度名稱</label>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="task-end-date" type="text" class="validate">
+                                        <label for="task-end-date">截止日期</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="task-end-time" type="text" class="validate">
+                                        <label for="task-end-time">截止時間</label>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+                                    <textarea id="tasktext" class="materialize-textarea"></textarea>
+                                    <label for="tasktext">說點什麼……</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">送出</a>
+                        </div>
+                    </div>
+                    <div id="discussion">
+                        <div class="card-panel">
+                            <div class="post">
+                                <div class="post-content">
+                                    <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                    <span class="title">Name</span>
+                                    <p>First Line
+                                        <br> Second Line
+                                    </p>
+                                    <div class="action-buttons secondary-content">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons">more_vert</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="valign-wrapper">
+                                <div class="col s12">
+                                    <br>
+                                    <div class="action-buttons">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons left">favorite</i>87
+                                        </a>
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons left">comment</i>87
+                                        </a>
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i id="shareBtn"  class="material-icons left">share</i>87
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="collection comment-collection">
+                                <li class="collection-item avatar">
+                                    <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                    <span class="title">Name</span>
+                                    <p>First Line
+                                        <br> Second Line
+                                    </p>
+                                    <div class="action-buttons secondary-content">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons left">favorite</i>87
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                    <span class="title">Name</span>
+                                    <p>First Line
+                                        <br> Second Line
+                                    </p>
+                                    <div class="action-buttons secondary-content">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons left">favorite</i>87
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                    <span class="title">Name</span>
+                                    <p>First Line
+                                        <br> Second Line
+                                    </p>
+                                    <div class="action-buttons secondary-content">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons left">favorite</i>87
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="comment-input">
+                                <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                <div class="input-field">
+                                    <textarea id="textarea2" class="materialize-textarea"></textarea>
+                                    <label for="textarea2">發表留言</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="event">
+                        <div class="card-panel">
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle">star</i>
+                                    <span class="title">活動主題</span>
+                                    <p>時間, 地點
+                                        <br>共87人參加
+                                    </p>
+                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown1'>
+                                        <i class="material-icons left">event_note</i>不確定</a>
+                                    <ul id='dropdown1' class='dropdown-content'>
+                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                    </ul>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle">star</i>
+                                    <span class="title">活動主題</span>
+                                    <p>時間, 地點
+                                        <br>共87人參加
+                                    </p>
+                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown2'>
+                                        <i class="material-icons left">event_note</i>不確定</a>
+                                    <ul id='dropdown2' class='dropdown-content'>
+                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                    </ul>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle">star</i>
+                                    <span class="title">活動主題</span>
+                                    <p>時間, 地點
+                                        <br>共87人參加
+                                    </p>
+                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown3'>
+                                        <i class="material-icons left">event_note</i>不確定</a>
+                                    <ul id='dropdown3' class='dropdown-content'>
+                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                    </ul>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle">star</i>
+                                    <span class="title">活動主題</span>
+                                    <p>時間, 地點
+                                        <br>共87人參加
+                                    </p>
+                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown4'>
+                                        <i class="material-icons left">event_note</i>不確定</a>
+                                    <ul id='dropdown4' class='dropdown-content'>
+                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="to-do">
+                        <div class="card-panel">
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <p class="check-list center">
+                                        <input type="checkbox" id="check1" />
+                                        <label for="check1"></label>
+                                    </p>
+                                    <span class="title">進度內容</span>
+                                    <p>時間
+                                        <br> 共87人完成
+                                    </p>
+                                    <div class="secondary-content">
+                                        <div class="switch">
+                                            <label>
+                                                通知
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <p class="check-list center">
+                                        <input type="checkbox" id="check2" />
+                                        <label for="check2"></label>
+                                    </p>
+                                    <span class="title">進度內容</span>
+                                    <p>時間
+                                        <br> 共87人完成
+                                    </p>
+                                    <div class="secondary-content">
+                                        <div class="switch">
+                                            <label>
+                                                通知
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <p class="check-list center">
+                                        <input type="checkbox" id="check3" />
+                                        <label for="check3"></label>
+                                    </p>
+                                    <span class="title">進度內容</span>
+                                    <p>時間
+                                        <br> 共87人完成
+                                    </p>
+                                    <div class="secondary-content">
+                                        <div class="switch">
+                                            <label>
+                                                通知
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <p class="check-list center">
+                                        <input type="checkbox" id="check4" />
+                                        <label for="check4"></label>
+                                    </p>
+                                    <span class="title">進度內容</span>
+                                    <p>時間
+                                        <br> 共87人完成
+                                    </p>
+                                    <div class="secondary-content">
+                                        <div class="switch">
+                                            <label>
+                                                通知
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="note">
+                        <div class="card-panel">
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../static/js/materialize.js"></script>
+    <script src="../static/js/moment.min.js"></script>
+    <script src="../static/js/draggabilly.pkgd.min.js"></script>
+    <script src="../static/js/mdDateTimePicker.js"></script>
+    <script src="../static/js/init.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script src="../static/js/group.js"></script>
+    
+    {% else %}
+    
+    <nav class="deep-orange lighten-2" role="navigation">
+        <div class="nav-wrapper nav-container">
+            <a href="index.html" class="nav-logo"></a>
+            <ul class="right hide-on-med-and-down">
+                <li>{{request.user}} 您已經登入囉~<a href="/logout/" class="waves-effect waves-light btn deep-orange lighten-3">登出</a></li>
+                <li><a href="front_log_in.html"><i class="material-icons">notifications</i></a></li>
+                <li><a href="profile_owner.html"><i class="material-icons">person</i></a></li>
+                <li><a href="#"><i class="material-icons">more_vert</i></a></li>
+            </ul>
+            <ul id="nav-mobile" class="side-nav">
+                <li><a href="#">Navbar Link</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col m4 hide-on-small-only">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="../static/images/img1.png">
+                        </div>
+                        <div class="card-content">
+                            <h6>成員</h6>
+                            <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                            <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                            <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                            {%for membership in memberships %}
+                            <p>{{membership.member}}</p>
+                            {%endfor%}
+                            <br>
+                            <span class="card-title">{{ group.name }}</span>
+                            <p>{{ group.group_introduction }}
+                            </p>
+                            <h6>領導者</h6>
+                            <p>{{ group.leader }}</p>
+                        </div>
+                        <div class="card-action">
+                            <h6>活躍成員</h6>
+                            <ol class="active-members">
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m8">
+                    <div class="index-banner-card">
+                        <div id="index-banner" class="parallax-container">
+                            <div class="section no-pad-bot">
+                                <div class="container">
+                                    <h3 class="header center teal-text text-lighten-2">{{ group.name }}</h3>
+                                    <div class="row center">
+                                        <h5 class="header col s12 light">{{ group.group_introduction }}</h5>
+                                    </div>
+                                    <div class="row right">
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="parallax"><img src="../static/images/background1.jpg" alt="Unsplashed background img 1"></div>
                         </div>
                         <ul class="tabs">
                             <li class="tab col s2"><a class="active" href="#discussion">討論</a></li>
@@ -185,7 +670,355 @@
                                 </li>
                             </ul>
                             <div class="talign-wrapper">
-                                你還沒有加入喔！
+                                <div class="col s1">
+                                    <img src="../static/images/img2.png" alt="" class="title-circle">
+                                    <!-- notice the "circle" class -->
+                                </div>
+                                <div class="input-field col s11">
+                                    <textarea id="textarea2" class="materialize-textarea"></textarea>
+                                    <label for="textarea2">Textarea</label>
+                                </div>
+                                <div class="divider"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="event">
+                        <div class="card-panel">
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle">star</i>
+                                    <span class="title">活動主題</span>
+                                    <p>時間, 地點
+                                        <br>共87人參加
+                                    </p>
+                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown2'>
+                                        <i class="material-icons left">event_note</i>不確定</a>
+                                    <ul id='dropdown2' class='dropdown-content'>
+                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                    </ul>
+                                
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle">star</i>
+                                    <span class="title">活動主題</span>
+                                    <p>時間, 地點
+                                        <br>共87人參加
+                                    </p>
+                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown2'>
+                                        <i class="material-icons left">event_note</i>不確定</a>
+                                    <ul id='dropdown2' class='dropdown-content'>
+                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                    </ul>
+                                    
+                                    
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle">star</i>
+                                    <span class="title">活動主題</span>
+                                    <p>時間, 地點
+                                        <br>共87人參加
+                                    </p>
+                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown2'>
+                                        <i class="material-icons left">event_note</i>不確定</a>
+                                    <ul id='dropdown2' class='dropdown-content'>
+                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                    </ul>
+                                    
+                                </li>
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle">star</i>
+                                    <span class="title">活動主題</span>
+                                    <p>時間, 地點
+                                        <br>共87人參加
+                                    </p>
+                                    <a class='dropdown-button btn secondary-content' href='#' data-activates='dropdown2'>
+                                        <i class="material-icons left">event_note</i>不確定</a>
+                                    <ul id='dropdown2' class='dropdown-content'>
+                                        <li><a href="#!"><i class="material-icons left">event_available</i>參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_busy</i>不參加</a></li>
+                                        <li><a href="#!"><i class="material-icons left">event_note</i>不確定</a></li>
+                                    </ul>
+                                    
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="to-do">
+                        <div class="card-panel">
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <p class="check-list center">
+                                        <input type="checkbox" id="check1" />
+                                        <label for="check1"></label>
+                                    </p>
+                                    <span class="title">進度內容</span>
+                                    <p>時間
+                                        <br> 共87人完成
+                                    </p>
+                                    <div class="secondary-content">
+                                        <div class="switch">
+                                            <label>
+                                                通知
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <p class="check-list center">
+                                        <input type="checkbox" id="check2" />
+                                        <label for="check2"></label>
+                                    </p>
+                                    <span class="title">進度內容</span>
+                                    <p>時間
+                                        <br> 共87人完成
+                                    </p>
+                                    <div class="secondary-content">
+                                        <div class="switch">
+                                            <label>
+                                                通知
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <p class="check-list center">
+                                        <input type="checkbox" id="check3" />
+                                        <label for="check3"></label>
+                                    </p>
+                                    <span class="title">進度內容</span>
+                                    <p>時間
+                                        <br> 共87人完成
+                                    </p>
+                                    <div class="secondary-content">
+                                        <div class="switch">
+                                            <label>
+                                                通知
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <p class="check-list center">
+                                        <input type="checkbox" id="check4" />
+                                        <label for="check4"></label>
+                                    </p>
+                                    <span class="title">進度內容</span>
+                                    <p>時間
+                                        <br> 共87人完成
+                                    </p>
+                                    <div class="secondary-content">
+                                        <div class="switch">
+                                            <label>
+                                                通知
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="note">
+                        <div class="card-panel">
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main <!-- Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../static/js/materialize.js"></script>
+    <script src="../static/js/init.js"></script>
+    {% endif %}
+    
+    {% else %}
+    <nav class="deep-orange lighten-2" role="navigation">
+        <div class="nav-wrapper nav-container">
+            <a href="index.html" class="nav-logo"></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a class="waves-effect waves-light btn deep-orange lighten-3" href="/login?next={{ request.path|urlencode }}">登入</a></li>
+            </ul>
+            <ul id="nav-mobile" class="side-nav">
+                <li><a href="#">Navbar Link</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col m4 hide-on-small-only">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="../static/images/img1.png">
+                        </div>
+                        <div class="card-content">
+                            <h6>成員</h6>
+                            <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                            <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                            <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                            <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                            <br>
+                            <span class="card-title">Group Name</span>
+                            <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
+                            </p>
+                        </div>
+                        <div class="card-action">
+                            <h6>活躍成員</h6>
+                            <ol class="active-members">
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                                <li>
+                                    <img src="../static/images/img2.png" alt="" class="small-circle responsive-img">
+                                    <span>Name</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m8">
+                    <div class="index-banner-card">
+                        <div id="index-banner" class="parallax-container">
+                            <div class="section no-pad-bot">
+                                <div class="container">
+                                    <h3 class="header center teal-text text-lighten-2">Group Name</h3>
+                                    <div class="row center">
+                                        <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
+                                    </div>
+                                    <div class="row right">
+                                        <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn waves-effect waves-light teal lighten-1">加入</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="parallax"><img src="../static/images/background1.jpg" alt="Unsplashed background img 1"></div>
+                        </div>
+                        <ul class="tabs">
+                            <li class="tab col s2"><a class="active" href="#discussion">討論</a></li>
+                            <li class="tab col s2"><a href="#event">活動</a></li>
+                            <li class="tab col s2"><a href="#to-do">進度</a></li>
+                            <li class="tab col s2"><a href="#note">筆記</a></li>
+                        </ul>
+                    </div>
+                    <div id="discussion">
+                        <div class="card-panel">
+                            <div class="post">
+                                <div class="post-content">
+                                    <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                    <span class="title">Name</span>
+                                    <p>First Line
+                                        <br> Second Line
+                                    </p>
+                                    <div class="action-buttons secondary-content">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons">more_vert</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="valign-wrapper">
+                                <div class="col s12">
+                                    <br>
+                                    <div class="action-buttons">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons left">favorite</i>87
+                                        </a>
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons left">comment</i>87
+                                        </a>
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons left">share</i>87
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="collection comment-collection">
+                                <li class="collection-item avatar">
+                                    <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                    <span class="title">Name</span>
+                                    <p>First Line
+                                        <br> Second Line
+                                    </p>
+                                    <div class="action-buttons secondary-content">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons left">favorite</i>87
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                    <span class="title">Name</span>
+                                    <p>First Line
+                                        <br> Second Line
+                                    </p>
+                                    <div class="action-buttons secondary-content">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons left">favorite</i>87
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="collection-item avatar">
+                                    <img src="../static/images/img2.png" alt="" class="circle circle-avatar">
+                                    <span class="title">Name</span>
+                                    <p>First Line
+                                        <br> Second Line
+                                    </p>
+                                    <div class="action-buttons secondary-content">
+                                        <a class="waves-effect waves-teal btn-flat">
+                                            <i class="material-icons left">favorite</i>87
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="talign-wrapper">
+                                你還沒有登入喔！
                             </div>
                         </div>
                     </div>
@@ -228,8 +1061,7 @@
                             <ul class="collection">
                                 <li class="collection-item avatar">
                                     <p class="check-list center">
-                                        <input type="checkbox" id="check1" />
-                                        <label for="check1"></label>
+                                        
                                     </p>
                                     <span class="title">進度內容</span>
                                     <p>時間
@@ -238,8 +1070,7 @@
                                 </li>
                                 <li class="collection-item avatar">
                                     <p class="check-list center">
-                                        <input type="checkbox" id="check2" />
-                                        <label for="check2"></label>
+                                       
                                     </p>
                                     <span class="title">進度內容</span>
                                     <p>時間
@@ -248,8 +1079,7 @@
                                 </li>
                                 <li class="collection-item avatar">
                                     <p class="check-list center">
-                                        <input type="checkbox" id="check3" />
-                                        <label for="check3"></label>
+                                        
                                     </p>
                                     <span class="title">進度內容</span>
                                     <p>時間
@@ -258,8 +1088,7 @@
                                 </li>
                                 <li class="collection-item avatar">
                                     <p class="check-list center">
-                                        <input type="checkbox" id="check4" />
-                                        <label for="check4"></label>
+                                        
                                     </p>
                                     <span class="title">進度內容</span>
                                     <p>時間
@@ -277,10 +1106,12 @@
                 </div>
             </div>
         </div>
-    </main <!-- Scripts-->
+    </main>
+    <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="../static/js/materialize.js"></script>
     <script src="../static/js/init.js"></script>
+    {% endif %}
 </body>
 
 </html>
