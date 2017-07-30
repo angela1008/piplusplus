@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
     <link rel="shortcut icon" type="image/png" href="../static/images/favicon.ico">
-    <title>piplusplus</title>
+    <title>Pi++ - {{classification.name}}{% if classification.id == null %}全部{% endif %}</title>
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -19,6 +19,7 @@
      <nav class="nav-extended deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
             <a href="{% url 'own_front'%}?id={{request.user.id}}" class="nav-logo"></a>
+            <a class="brand-logo">{{classification.name}}{% if classification.id == null %}全部{% endif %}</a>
             <ul class="right hide-on-med-and-down">
                 {% if request.user.is_authenticated %}
                 <li>{{request.user}} 您已經登入囉~</li>
@@ -48,20 +49,20 @@
                 <div class="catagory-list pin-top" style="top: 0px;">
                     <div style="height: 1px;">
                         <ul class="section table-of-contents">
-                            <li><a href="{% url 'own_front'%}?id={{request.user.id}}"><i class="material-icons tiny">face</i>全部</a></li>
-                            <li><a href="{% url 'own_computer_front' %}?id={{request.user.id}}"><i class="material-icons tiny">computer</i>資訊科技</a></li>
-                            <li><a href="{% url 'own_build_front' %}?id={{request.user.id}}"><i class="material-icons tiny">build</i>工程建築</a></li>
-                            <li><a href="{% url 'own_math_front' %}?id={{request.user.id}}"><i class="material-icons tiny">functions</i>數理化學</a></li>
-                            <li><a href="{% url 'own_healing_front' %}?id={{request.user.id}}"><i class="material-icons tiny">healing</i>醫藥衛生</a></li>
-                            <li><a href="{% url 'own_nature_front' %}?id={{request.user.id}}"><i class="material-icons tiny">local_florist</i>自然科學</a></li>
-                            <li><a href="{% url 'own_art_front' %}?id={{request.user.id}}"><i class="material-icons tiny">palette</i>藝術設計</a></li>
-                            <li><a href="{% url 'own_society_front' %}?id={{request.user.id}}"><i class="material-icons tiny">local_library</i>人文社會</a></li>
-                            <li><a href="{% url 'own_manage_front' %}?id={{request.user.id}}"><i class="material-icons tiny">attach_money</i>財經管理</a></li>
-                            <li><a href="{% url 'own_language_front' %}?id={{request.user.id}}"><i class="material-icons tiny">translate</i>語言學習</a></li>
-                            <li><a href="{% url 'own_sport_front' %}?id={{request.user.id}}"><i class="material-icons tiny">fitness_center</i>運動遊憩</a></li>
-                            <li><a href="{% url 'own_qulification_front' %}?id={{request.user.id}}"><i class="material-icons tiny">assignment</i>資格檢定</a></li>
-                            <li><a href="{% url 'own_test_front' %}?id={{request.user.id}}"><i class="material-icons tiny">school</i>升學考試</a></li>
-                            <li><a href="{% url 'own_other_front' %}?id={{request.user.id}}"><i class="material-icons tiny">extension</i>其他</a></li>
+                            <li><a href="{% url 'own_front'%}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == null %}active{% endif %}"><i class="material-icons tiny">face</i>全部</a></li>
+                            <li><a href="{% url 'own_computer_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 1 %}active{% endif %}"><i class="material-icons tiny">computer</i>資訊科技</a></li>
+                            <li><a href="{% url 'own_build_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 2 %}active{% endif %}"><i class="material-icons tiny">build</i>工程建築</a></li>
+                            <li><a href="{% url 'own_math_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 3 %}active{% endif %}"><i class="material-icons tiny">functions</i>數理化學</a></li>
+                            <li><a href="{% url 'own_healing_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 4 %}active{% endif %}"><i class="material-icons tiny">healing</i>醫藥衛生</a></li>
+                            <li><a href="{% url 'own_nature_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 5 %}active{% endif %}"><i class="material-icons tiny">local_florist</i>自然科學</a></li>
+                            <li><a href="{% url 'own_art_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 6 %}active{% endif %}"><i class="material-icons tiny">palette</i>藝術設計</a></li>
+                            <li><a href="{% url 'own_society_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 7 %}active{% endif %}"><i class="material-icons tiny">local_library</i>人文社會</a></li>
+                            <li><a href="{% url 'own_manage_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 8 %}active{% endif %}"><i class="material-icons tiny">attach_money</i>財經管理</a></li>
+                            <li><a href="{% url 'own_language_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 9 %}active{% endif %}"><i class="material-icons tiny">translate</i>語言學習</a></li>
+                            <li><a href="{% url 'own_sport_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 10 %}active{% endif %}"><i class="material-icons tiny">fitness_center</i>運動遊憩</a></li>
+                            <li><a href="{% url 'own_qulification_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 11 %}active{% endif %}"><i class="material-icons tiny">assignment</i>資格檢定</a></li>
+                            <li><a href="{% url 'own_test_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 12 %}active{% endif %}"><i class="material-icons tiny">school</i>升學考試</a></li>
+                            <li><a href="{% url 'own_other_front' %}{% if request.user.is_authenticated %}?id={{request.user.id}}{% endif %}" class="{% if classification.id == 13 %}active{% endif %}"><i class="material-icons tiny">extension</i>其他</a></li>
                         </ul>
                     </div>
                 </div>
@@ -96,7 +97,7 @@
                                         <select name="classification" class="icons">
                                             <option value="" disabled selected>選擇您的選項</option>
                                             {% for classification in classifications %}
-                                            <option value="{{classification.id}}" data-icon="../static/images/logo_small.svg" class="left circle">{{classification.name}}</option>
+                                            <option value="{{classification.id}}" data-icon="../static/images/class_icon/class{{classification.id}}.svg" class="left circle">{{classification.name}}</option>
                                             {% endfor %}
                                         </select>
                                         {% if classification_error %}
@@ -133,9 +134,9 @@
                 <div id="all" class="col s12">
                     <div class="container">
                         <div class="section">
-                            {% if is_join %}
-                            <p>* 您已經加入該社團囉!</p>
-                            {% endif %}
+                            <!--{% if is_join %}-->
+                            <!--<p>* 您已經加入該社團囉!</p>-->
+                            <!--{% endif %}-->
                             <h5 class="light">熱門</h5>
                             <div class="row">
                                 {% if hot_groups.exists %}
@@ -161,6 +162,32 @@
                                         </div>
                                     </div>
                                     {% endfor %}
+                                    <!--{% for hot_group_member in hot_groups_members %}-->
+                                    <!--<div class="col s6 m3">-->
+                                    <!--    <div class="card group-card">-->
+                                    <!--        <div class="card-image">-->
+                                    <!--            <img src="/{{ hot_group_member.group.group_pic.url }}">-->
+                                    <!--        </div>-->
+                                    <!--        <div class="card-content">-->
+                                    <!--            <span class="card-title"><a href="/group?id={{hot_group_member.group.id}}">{{hot_group_member.group.name}}</a></span>-->
+                                    <!--            <p>{{hot_group_member.group.join_number}}位成員</p>-->
+                                    <!--        </div>-->
+                                    <!--        {% if request.user.is_authenticated %}-->
+                                    <!--        {% if request.user == hot_groups_members_group %}-->
+                                    <!--        <p>已加入</p>-->
+                                    <!--        {%else%}-->
+                                    <!--        <form action="" method="post">-->
+                                    <!--            <input type="hidden" name="member_id" value="{{request.user.id}}">-->
+                                    <!--            <input type="hidden" name="group_id" value="{{hot_group_member.group.id}}">-->
+                                    <!--            <div class="card-action">-->
+                                    <!--                <input type="submit" name="join_group" value="加入">-->
+                                    <!--            </div>-->
+                                    <!--        </form>-->
+                                    <!--        {% endif %}-->
+                                    <!--        {% endif %}-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
+                                    <!--{% endfor %}-->
                                 {% else %}
                                     <p>{{classification.name}}還沒有熱門社團喔!</p>
                                 {% endif %}

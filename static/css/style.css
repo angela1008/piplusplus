@@ -334,7 +334,12 @@ h2.strikeThrough span {
     padding-left: 0;
     list-style-type: none;
     margin: 0;
-    overflow: hidden;
+    /*overflow: hidden; */
+}
+
+.cardpanel-dropdown {
+    left: auto!important;
+    right: 0;
 }
 
 .post-content,
@@ -423,4 +428,9 @@ h2.strikeThrough span {
     text-transform: uppercase;
     outline: none;
     outline-offset: 0;
+}
+
+nav .brand-logo {
+    font-size: 1.4rem;
+    padding: 0 15px;
 }

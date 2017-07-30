@@ -69,9 +69,9 @@ def front(request):
         if user_id:
             user = User.objects.get(id=user_id)
         
-            # join
+            # get all join groups
             join_groups = models.Membership.objects.filter(Q(member=user_id))
-            # leader
+            # get all leader groups
             leader_groups = models.Group.objects.filter(leader=user_id)
         # return classifications to front.html
         classifications = models.Classification.objects.all()
@@ -81,13 +81,16 @@ def front(request):
         hot_groups = models.Group.objects.order_by('-join_number')[:8]
         # get latest 8 groups
         latest_groups = models.Group.objects.order_by('-created_at')[:8]
-            
+        
+        # for i in hot_groups:
+        #     hot_groups_members = models.Membership.objects.filter(group=i)
+        
         return render_to_response('front.html',locals())
         
     """
     A new user add to a new group.
     """
-    is_join = False
+    # is_join = False
     if 'join_group' in request.POST:
         user_id = request.POST.get('member_id', None)
         group_id = request.POST.get('group_id', None)
@@ -100,7 +103,7 @@ def front(request):
             # must use filter instead of get
             models.Group.objects.filter(id=group_id).update(join_number=F('join_number')+1)
             return HttpResponseRedirect('/group/?id=%d' %group.id)
-        is_join = True
+        # is_join = True
         # will error
         return render_to_response('front.html',locals())
         
@@ -147,8 +150,9 @@ def get_classification_groups(request, classification_id):
     Get groups from different classifications.
     """
     if request.method == 'GET':
-        user_id = request.GET.get('id', None)
-        user = User.objects.get(id=user_id)
+        if request.user.is_authenticated():
+            user_id = request.GET.get('id', None)
+            user = User.objects.get(id=user_id)
         
         # return classifications to front.html
         classifications = models.Classification.objects.all()
@@ -158,9 +162,9 @@ def get_classification_groups(request, classification_id):
         hot_groups = models.Group.objects.filter(classification=classification).order_by('-join_number')[:8]
         latest_groups = models.Group.objects.filter(classification=classification).order_by('-created_at')[:8]
         
-        join_groups = models.Membership.objects.filter(Q(member=user) & Q(classification=classification))
-        
-        leader_groups = models.Group.objects.filter(Q(leader=user) & Q(classification=classification))
+        if request.user.is_authenticated():
+            join_groups = models.Membership.objects.filter(Q(member=user) & Q(classification=classification))
+            leader_groups = models.Group.objects.filter(Q(leader=user) & Q(classification=classification))
     return render_to_response('front.html',locals())
         
 def computer_front(request):
@@ -228,10 +232,11 @@ def profile(request, user):
             
         try:
             userextention = models.UserExtension.objects.get(user=user)
-            userinterests = models.UserInterest.objects.filter(user=user)
+            userinterest = models.UserInterest.objects.get(user=user)
+            classifications = models.Classification.objects.filter(name=userinterest.name)
         except ObjectDoesNotExist:
             models.UserExtension.objects.create(user=user, name='', gender='', birth=None, location='', self_introduction='')
-            models.UserInterest.objects.create(user=user, name='')
+            models.UserInterest.objects.create(user=user).name.clear()
         
         ## Group
         #  # all
@@ -240,6 +245,7 @@ def profile(request, user):
         join_groups = models.Membership.objects.filter(Q(member=user) & Q(is_leader=False))
         # # leader
         leader_groups = models.Group.objects.filter(leader=user)
+        # classifications = models.Classification.objects.filter(name=userinterest.name)
         return render_to_response('profile_owner.html',locals())
         
     """
@@ -274,9 +280,8 @@ def profile(request, user):
             user.save()
         elif 'edit_introduction' in request.POST:
             user_introduction = request.POST['introduction']
-            if 'interest' in request.POST:
-                user_interests = request.POST['interest']
-                userinterest.self_introduction = user_interests
+            user_interests = request.POST.getlist('interests') #select multiple
+            userinterest.name = user_interests
             userextension.self_introduction = user_introduction
             userextension.save()
             userinterest.save()
@@ -435,6 +440,11 @@ def group(request):
                 task_finished = models.TaskShip.objects.create(member=member, task=task, group=group, is_finished=True)
                 task.finished_number += 1
                 task.save()
+                
+        elif 'add_note' in request.POST:
+            note_name = request.POST['note_name']
+            note = models.Note.objects.create(creater=member, name=note_name, group=group)
+            
         elif 'edit_group' in request.POST:
             group_name = request.POST['name']
             group_introduction = request.POST['description']
@@ -442,6 +452,16 @@ def group(request):
                 group.name = group_name
                 group.group_introduction = group_introduction
                 group.save()
+                
+        elif 'edit_post' in request.POST:
+             discussion_title = request.POST['title']
+             discussion_content = request.POST['content']
+             discussion_id = request.POST['discussion_id']
+             discussion = models.Discussion.objects.get(id=discussion_id)
+             discussion.title = discussion_title
+             discussion.content = discussion_content
+             discussion.save()        
+                
         elif 'update_group_pic' in request.POST:
             if member.is_leader:
                 #up_file = request.FILES['image']
@@ -471,16 +491,20 @@ def group(request):
             #group.group_pic = 'static/media/group/default.png'
             #group.save()
             memberships = models.Membership.objects.filter(group=group)
+            
             for membership in memberships:
                 if membership.member == request.user:
                     user_in_group = True
                     break
-            discussions = models.Discussion.objects.filter(group = group)
+            discussions = models.Discussion.objects.filter(group = group).order_by('-created_at')
+            
             comments = models.Comment.objects.filter(discussion__in = discussions)
-            events = models.Event.objects.filter(group = group)
-            tasks = models.Task.objects.filter(group = group)
+            events = models.Event.objects.filter(group = group).order_by('-created_at')
+            tasks = models.Task.objects.filter(group = group).order_by('-created_at')
+            notes = models.Note.objects.filter(group = group)
             if request.user.is_authenticated():
                 if user_in_group:
+                   
                     member = models.Membership.objects.get(member=request.user, group=group)
                     eventships = models.EventShip.objects.filter(member=member,group=group)
                     for event in events:
@@ -500,5 +524,16 @@ def group(request):
                                 in_task = True
                         if not in_task:
                             task.is_finished=False
+                    user_heart = []
+                    user_comment_heart = []
+                    user_hearts = models.DiscussionHeart.objects.filter(member=member,group=group,is_heart=True)
+                    for i in user_hearts:
+                        user_heart.append(i.discussion)
+                        user_comment_hearts = models.CommentHeart.objects.filter(member=member,discussion=i.discussion,is_heart=True)
+                        for j in user_comment_hearts:
+                            user_comment_heart.append(j.comment)
 
             return render(request, 'group.html',locals())
+            
+def note(request):
+    return render(request, 'note.html',locals())

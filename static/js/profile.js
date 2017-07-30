@@ -59,7 +59,8 @@ var UploadProfilePic = (function() {
             }).then(function(resp) {
                 $('.profile-pic').attr('src', resp);
                 $('#new-profile-image').attr('value', resp);
-                $( "#update_pic" ).submit();
+               // $( "#update_pic" ).submit();
+                $.post('', { "image": resp, "update_profile_pic": "true" });
             });
         });
     }

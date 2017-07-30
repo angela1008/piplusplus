@@ -17,20 +17,21 @@ class UserExtension(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
 
-## User's Interests
-class UserInterest(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=254)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
-
-
 ## Group's classification
 class Classification(models.Model):
     name = models.CharField(max_length=254)
     
     def __unicode__(self):
       return self.name
+
+
+## User's Interests
+class UserInterest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.ManyToManyField(Classification, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+
     
 ## Group
 class Group(models.Model):
@@ -161,3 +162,13 @@ class CommentHeart(models.Model):
     is_heart = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    
+class Note(models.Model):
+    creater = models.ForeignKey(Membership, on_delete=models.CASCADE)
+    name = models.CharField(max_length=256)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, default="")
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    
+    def __unicode__(self):
+        return self.name

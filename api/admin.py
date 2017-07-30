@@ -4,13 +4,19 @@ from api import models as apiModels
 # Register your models here.
 class UserExtensionAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'user_pic', 'gender', 'birth', 'location', 'self_introduction', 'created_at', 'updated_at')
-    
+
+
+#class UserInterestInline(admin.TabularInline):
+    #model = apiModels.UserInterest
+
 class UserInterestAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'name', 'created_at', 'updated_at')
+    list_display = ('id', 'user', 'created_at', 'updated_at')
+    #inlines = (UserInterestInline,)
+    #fields = ['name']
     
 
 class ClassificationAdmin(admin.ModelAdmin):
-    ist_display = ('id', 'name')
+    list_display = ('id', 'name')
     
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'group_pic', 'leader', 'classification', 'group_introduction', 'join_number', 'created_at', 'updated_at')
@@ -47,7 +53,9 @@ class CommentAdmin(admin.ModelAdmin):
     
 class CommentHeartAdmin(admin.ModelAdmin):
     list_display = ('id', 'member', 'comment', 'discussion', 'is_heart', 'created_at', 'updated_at')
-    
+
+class NoteAdmin(admin.ModelAdmin):
+    list_display = ('id', 'creater', 'name', 'group', 'created_at', 'updated_at')
     
 admin.site.register(apiModels.UserExtension, UserExtensionAdmin)
 admin.site.register(apiModels.UserInterest, UserInterestAdmin)
@@ -68,3 +76,5 @@ admin.site.register(apiModels.DiscussionComment, DiscussionCommentAdmin)
 
 admin.site.register(apiModels.Comment, CommentAdmin)
 admin.site.register(apiModels.CommentHeart, CommentHeartAdmin)
+
+admin.site.register(apiModels.Note, NoteAdmin)

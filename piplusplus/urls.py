@@ -48,4 +48,6 @@ urlpatterns = patterns('',
     
     url(r'^profile/(?P<user>\w+)$', apiViews.profile, name='own_profile'),
     url(r'^group/$', apiViews.group, name='own_group'),
+    
+    url(r'^note/$', apiViews.note, name='note'),
 )

@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
     <link rel="shortcut icon" type="image/png" href="../static/images/favicon.ico">
-    <title>piplusplus - {{ user }}</title>
+    <title>Pi++ - {{ user.first_name }}</title>
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -23,6 +23,7 @@
     <nav class="deep-orange lighten-2" role="navigation">
         <div class="nav-wrapper nav-container">
             <a href="{% url 'own_front' %}?id={{request.user.id}}" class="nav-logo"></a>
+            <a class="brand-logo">{{ user.first_name }}</a>
             <ul class="right hide-on-med-and-down">
                 <li>{{request.user}} 您已經登入囉~</li>
                 <li><a href="#"><i class="material-icons">notifications</i></a></li>
@@ -57,7 +58,7 @@
                         </div>
                         <div class="profile-container">
                             <div class="row center">
-                                <img src="/{{ userextention.user_pic.url }}" class="circle responsive-img profile-pic">
+                                <img src="/{{ userextention.user_pic.url }}" onerror="this.src='../static/media/user/default.png';" class="circle responsive-img profile-pic">
                                 <!-- 管理員專用 -->
                                 {% if is_owner %}
                                 <div class="upload-profile">
@@ -117,7 +118,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <a onclick="document.getElementById('update_pic').submit()" class="upload-result modal-action modal-close waves-effect waves-green btn-flat">確定</a>
+                            <a class="upload-result modal-action modal-close waves-effect waves-green btn-flat">確定</a>
                         </div>
                     </div>
                     {% endif %}
@@ -190,12 +191,12 @@
                                 <p>
                                     <label class="active">興趣</label>
                                     <br>
-                                    {% if userinterests.exists %}
-                                        {% for userinterest in userinterests %}
+                                    {% if userinterest.name.exists %}
+                                        {% for userinterest in userinterest.name.all %}
                                         <div class="chip">{{userinterest.name}}</div></p>
                                         {% endfor %}
                                     {% else %}
-                                        <div class="chip">{{userinterest.name}}</div></p>
+                                        <div class="chip">你還沒設定唷!</div></p>
                                     {% endif %}
                                 </p>
                                 <br>
@@ -212,7 +213,7 @@
                                     <label for="introduction">簡介</label>
                                 </div>
                                 <div class="input-field">
-                                    <select multiple class="edit-interests" name="interest">
+                                    <select multiple class="edit-interests" name="interests">
                                         <option value="" disabled selected>選擇你的興趣</option>
                                         <option value="1">資訊科技</option>
                                         <option value="2">工程建築</option>
@@ -251,13 +252,15 @@
                             <div id="all" class="col s12">
                             {% if memberships.exists %}
                                 {% for membership in memberships %}
-                                <div class="card group-card col s6">
-                                    <div class="card-image">
-                                        <img src="/{{ membership.group.group_pic.url }}">
-                                    </div>
-                                    <div class="card-content">
-                                        <span class="card-title"><a href="{% url 'own_group'%}?id={{membership.group.id}}">{{membership.group.name}}</a></span>
-                                        <p>{{membership.group.join_number}}位成員</p>
+                                <div class="col s6">
+                                    <div class="card group-card">
+                                        <div class="card-image">
+                                            <img src="/{{ membership.group.group_pic.url }}">
+                                        </div>
+                                        <div class="card-content">
+                                            <span class="card-title"><a href="{% url 'own_group'%}?id={{membership.group.id}}">{{membership.group.name}}</a></span>
+                                            <p>{{membership.group.join_number}}位成員</p>
+                                        </div>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -269,13 +272,15 @@
                             <div id="member" class="col s12">
                             {% if join_groups.exists %}
                                 {% for join_group in join_groups %}
-                                <div class="card group-card col s6">
-                                    <div class="card-image">
-                                        <img src="/{{ join_group.group.group_pic.url }}">
-                                    </div>
-                                    <div class="card-content">
-                                        <span class="card-title"><a href="{% url 'own_group'%}?id={{join_group.group.id}}">{{join_group.group.name}}</a></span>
-                                        <p>{{join_group.group.join_number}}位成員</p>
+                                <div class="col s6">
+                                    <div class="card group-card">
+                                        <div class="card-image">
+                                            <img src="/{{ join_group.group.group_pic.url }}">
+                                        </div>
+                                        <div class="card-content">
+                                            <span class="card-title"><a href="{% url 'own_group'%}?id={{join_group.group.id}}">{{join_group.group.name}}</a></span>
+                                            <p>{{join_group.group.join_number}}位成員</p>
+                                        </div>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -287,13 +292,15 @@
                             <div id="your" class="col s12">
                             {% if leader_groups.exists %}
                                 {% for leader_group in leader_groups %}
-                                <div class="card group-card col s6">
-                                    <div class="card-image">
-                                        <img src="/{{ leader_group.group_pic.url }}">
-                                    </div>
-                                    <div class="card-content">
-                                        <span class="card-title"><a href="{% url 'own_group'%}?id={{leader_group.id}}">{{leader_group.name}}</a></span>
-                                        <p>{{leader_group.join_number}}位成員</p>
+                                <div class="col s6">
+                                    <div class="card group-card">
+                                        <div class="card-image">
+                                            <img src="/{{ leader_group.group_pic.url }}">
+                                        </div>
+                                        <div class="card-content">
+                                            <span class="card-title"><a href="{% url 'own_group'%}?id={{leader_group.id}}">{{leader_group.name}}</a></span>
+                                            <p>{{leader_group.join_number}}位成員</p>
+                                        </div>
                                     </div>
                                 </div>
                                 {% endfor %}
